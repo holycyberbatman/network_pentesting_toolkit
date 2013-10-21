@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: ns.fr,v 1.20 2010/08/25 14:29:55 bortzmeyer Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.20 $ 
+# DATE        : $Date: 2010/08/25 14:29:55 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Shortcuts -->
+  <shortcut>
+    <explanation name="ns_cname">
+      <src type="ref" from="rfc" fid="rfc1912#p7">
+        <title>IETF RFC1912 (p.7)</title>
+        <para>Having NS records pointing to a CNAME is bad and may
+          conflict badly with current BIND servers. In fact, current 
+          BIND implementations will ignore such records, possibly leading
+          to a lame delegation. There is a certain amount of security
+          checking done in BIND to prevent spoofing DNS NS records.
+          Also, older BIND servers reportedly will get caught in an 
+          infinite query loop trying to figure out the address for the
+          aliased nameserver, causing a continuous stream of DNS requests
+          to be sent.</para>
+      </src>
+    </explanation>
+  </shortcut>
+
+
+  <!-- Checks -->
+  <check name="ns">
+    <name>présence d'un enregistrement NS</name>
+    <success>Enregistrement NS présent sur le serveur</success>
+    <failure>Aucun enregistrement NS présent sur le serveur</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="ns_auth">
+    <name>réponse faisant autorité pour le NS</name>
+    <success>La réponse pour le NS fait autorité</success>
+    <failure>La réponse pour le NS ne fait pas autorité</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="ns_sntx">
+    <name>la syntaxe du NS réprésente un nom/domaine valide</name>
+    <success>la syntaxe du NS est correcte</success>
+    <failure>la syntaxe du NS n'est pas correcte</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+
+  <check name="ns_cname">
+    <name>l'enregistrement NS n'est pas un alias</name>
+    <success>L'enregistrement NS n'est pas un alias</success>
+    <failure>L'enregistrement NS ne peut pas être un alias (CNAME)</failure>
+    <explanation sameas="shortcut:ns_cname"/>
+    <details/>
+  </check>
+
+
+  <check name="ns_vs_any">
+    <name>cohérence entre enregistrements NS et ANY</name>
+    <success>Enregistrements NS et ANY cohérents</success>
+    <failure>Enregistrements NS et ANY incohérents</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="ns_ip">
+    <name>enregistrement NS peut être résolu</name>
+    <success>L'adresse IP du serveur de noms a été trouvée</success>
+    <failure>L'adresse IP du serveur de noms n'existe pas</failure>
+    <explanation/>
+    <details><para>L'adresse IP pour <zcvar name="name"/> n'a pas été
+      trouvée.</para></details>
+  </check>
+
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

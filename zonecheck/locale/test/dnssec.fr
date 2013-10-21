@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: dnssec.fr,v 1.1.1.1 2010/02/23 16:20:42 redon Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.1.1.1 $ 
+# DATE        : $Date: 2010/02/23 16:20:42 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+
+  <!-- Checks -->
+  <check name="edns">
+    <name>Support de l'EDNS</name>
+    <success>supporte EDNS</success>
+    <failure>ne supporte pas EDNS</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  
+  <check name="has_soa_rrsig">
+    <name>présence d'une signature pour le SOA</name>
+    <success>a son SOA signé</success>
+    <failure>n'a pas de signature pour son SOA</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="one_dnskey">
+    <name>présence d'une DNSKEY</name>
+    <success>une clé publique a été trouvée</success>
+    <failure>aucune clé publique n'a été trouvée</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="several_dnskey">
+    <name>présence de plusieurs DNSKEY</name>
+    <success>plusieurs clés publiques ont été trouvées</success>
+    <failure>une seule clé publique est publiée</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="zsk_and_ksk">
+    <name>présence d'une ZSK et d'une KSK</name>
+    <success>au moins une ZSK et une KSK ont été trouvées</success>
+    <failure>pas de ZSK ou pas de KSK</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="verify_soa_rrsig">
+    <name>vérification de la signature du SOA</name>
+    <success>le SOA a une signature correcte</success>
+    <failure>le SOA a une signature non correcte</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="soa_rrsig_expiration">
+    <name>vérification de l'expiration du RRSIG du SOA</name>
+    <success>la signature du SOA ne va pas expirer bientôt</success>
+    <failure>la signature du SOA va bientôt expirer ou est déjà expirée</failure>
+    <explanation/>
+    <details><para>La signature expire le <zcvar name="date"/>.</para></details>
+  </check>
+  
+  <check name="soa_rrsig_validity_period">
+    <name>vérification de la durée de vie de la signature du SOA</name>
+    <success>la signature du SOA a une durée de vie acceptable</success>
+    <failure>la signature du SOA a une durée de vie trop courte ou trop longue</failure>
+    <explanation/>
+    <details><para>la durée de vie de la signature est de <zcvar name="period"/> 
+    et devrait être entre <zcvar name="min"/> et <zcvar name="max"/> 
+    et plus grande que le TTL (ici <zcvar name="ttl"/>)</para></details>
+  </check>
+
+  <check name="algorithm">
+    <name>vérification de la sécurité de l'algorithme</name>
+    <success>Une signature avec un algorithme suffisament sûr a été trouvé</success>
+    <failure>l'algorithme choisi pour les signatures n'est pas très sûr</failure>
+    <explanation/>
+    <details><para>L'algoritme utilisé pour signer les enregistrement n'est pas très sûr car: <zcvar name="error"/></para></details>
+  </check>
+
+  <check name="key_length">
+    <name>Taille de la clé</name>
+    <success>la taille de la clé est suffisante</success>
+    <failure>la taille de la clé ne permet pas une bonne protection pour cet 
+    algorithme</failure>
+    <explanation/>
+    <details><para>La clé a une taille de <zcvar name="keylength"/> bits pour 
+    l'algorithme <zcvar name="algo"/></para></details> 
+  </check>
+  
+  <check name="ds_and_dnskey_coherence">
+    <name>cohérence entre la DS ou DNSKEY donnée en paramètre et les DNSKEYs dans la zone</name>
+    <success>La DS ou DNSKEY donnée correspond à une des DNSKEY de la zone</success>
+    <failure>La DS ou DNSKEY donnée ne correspond à aucune des DNSKEY de la zone</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

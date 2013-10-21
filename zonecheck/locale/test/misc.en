@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: misc.en,v 1.22 2010/06/01 15:36:07 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.22 $ 
+# DATE        : $Date: 2010/06/01 15:36:07 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Checks -->
+  <check name="ns_reverse">
+    <name>nameserver IP reverse</name>
+    <success>Reverse for nameserver IP address found</success>
+    <failure>Can't find reverse for the nameserver IP address</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="ns_matching_reverse">
+    <name>nameserver IP reverse matching nameserver name</name>
+    <success>Reverse matching nameserver name</success>
+    <failure>Reverse for the nameserver IP address doesn't match</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="not_recursive">
+    <name>nameserver doesn't allow recursion</name>
+    <success>The anameserver is not recursive</success>
+    <failure>The nameserver allow recursive queries</failure>
+    <explanation>
+      <src type="ref">
+        <title>ZoneCheck</title>
+        <para>If you configure your nameserver to answer recursive
+          queries, it means that you allow your nameserver to be used
+          by anyone to resolve any kind of queries.</para>
+        <para>This allows everyone to use your server as an
+        amplifier for a Denial-of-Service attack. See 
+        http://www.us-cert.gov/reading_room/DNS-recursion121605.pdf.</para>
+      </src>
+    </explanation>
+    <details/>
+  </check>
+
+
+  <check name="correct_recursive_flag">
+    <name>check if server is really recursive</name>
+    <success>Server is recursive as stated</success>
+    <failure>Server claims to be recursive but is not</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="given_nsprim_vs_soa">
+    <name>given primary nameserver is primary</name>
+    <success>The primary nameserver matches the given one</success>
+    <failure>The primary nameserver doesn't match the given one</failure>
+    <explanation/>
+    <details><para>The primary nameserver (<zcvar name="primary"/>)
+       doesn't match the given one
+       (<zcvar name="given_primary"/>).</para></details>
+  </check>
+
+
+  <check name="given_ns_vs_ns">
+    <name>correctness of given nameserver list</name>
+    <success>The nameserver list matches the given one</success>
+    <failure>The nameserver list doesn't match the given one</failure>
+    <explanation/>
+    <details><para>The given nameserver list (<zcvar name="list_from_param"/>)
+      is not consistent with the one retrieved from the zone
+      (<zcvar name="list_from_ns"/>).</para></details>
+  </check>
+
+
+<!-- FIXME -->
+
+  <test name="recursive_server">
+    <name>test if server is recursive</name>
+  </test>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

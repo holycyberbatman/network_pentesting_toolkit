@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: mx.fr,v 1.23 2010/08/25 14:29:55 bortzmeyer Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.23 $ 
+# DATE        : $Date: 2010/08/25 14:29:55 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Checks -->
+  <check name="mx">
+    <name>enregistrement MX présent</name>
+    <success>L'enregistrement MX est présent sur le serveur</success>
+    <failure>Aucun enregistrement MX présent sur le serveur</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc1912#p7">
+        <title>IETF RFC1912 (p.7)</title>
+        <para>Put MX records even on hosts that aren't intended to
+          send or receive e-mail. If there is a security problem
+          involving one of these hosts, some people will mistakenly
+          send mail to postmaster or root at the site without checking
+          first to see if it is a "real" host or just a terminal or 
+          personal computer that's not set up to accept e-mail.</para>
+       </src>
+     </explanation>
+     <details/>
+  </check>
+
+
+  <check name="mx_auth">
+    <name>réponse faisant autorité pour le MX</name>
+    <success>La réponse pour le MX fait autorité</success>
+    <failure>La réponse pour le MX ne fait pas autorité</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="mx_sntx">
+    <name>syntaxe du MX représente un nom de machine valide</name>
+    <success>La syntaxe du MX est correcte</success>
+    <failure>La syntaxe du MX n'est pas correcte</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+
+  <check name="mx_cname">
+    <name>l'enregistrement MX n'est pas un alias</name>
+    <success>L'enregistrement MX n'est pas un alias</success>
+    <failure>L'enregistrement MX ne peut pas être un alias (CNAME)</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc974">
+        <title>IETF RFC974</title>
+        <para>MX records shall not point to an alias defined by a CNAME.</para>
+      </src>
+    </explanation>
+    <details><para>Le MX <zcvar name="mx"/> est un alias vers
+      <zcvar name="cname"/>.</para></details>
+  </check>
+
+
+  <check name="mx_no_wildcard">
+    <name>absence de joker pour l'enregistrement MX</name>
+    <success>Pas de joker pour l'enregistrement MX</success>
+    <failure>Un joker pour l'enregistrement MX est présent</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="mx_ip">
+    <name>enregistrement MX peut être résolu</name>
+    <success>L'adresse IP de l'enregistrement MX a été trouvée</success>
+    <failure>L'adresse IP de l'enregistrement MX ne peut pas être résolue</failure>
+    <explanation/>
+    <details><para>Le MX <zcvar name="mx"/> représentant le nom du serveur
+      ne possède pas d'adresse IP.</para></details>
+  </check>
+
+
+  <check name="mx_vs_any">
+    <name>cohérence entre enregistrements MX et ANY</name>
+    <success>Enregistrements MX et ANY cohérents</success>
+    <failure>Enregistrements MX et ANY incohérents</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+<!-- FIXME -->
+
+  <test name="mail_by_mx_or_a">
+    <name>Test si le mail est envoyé via un MX ou un A/AAAA</name>
+  </test>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

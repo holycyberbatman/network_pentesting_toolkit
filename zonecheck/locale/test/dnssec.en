@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: dnssec.en,v 1.1.1.1 2010/02/23 16:20:42 redon Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.1.1.1 $ 
+# DATE        : $Date: 2010/02/23 16:20:42 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Checks -->
+  <check name="edns">
+    <name>supports EDNS</name>
+    <success>supports EDNS</success>
+    <failure>does not support EDNS</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  
+  <check name="has_soa_rrsig">
+    <name>has a RRSIG for its SOA</name>
+    <success>has a signed SOA</success>
+    <failure>does not have a signed SOA</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="one_dnskey">
+    <name>a DNSKEY exists</name>
+    <success>has at least one DNSKEY</success>
+    <failure>has no DNSKEY</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="several_dnskey">
+    <name>several DNSKEY exist</name>
+    <success>has several DNSKEY</success>
+    <failure>has just one DNSKEY</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="zsk_and_ksk">
+    <name>both ZSK and KSK exist</name>
+    <success>has at least a KSK and a ZSK</success>
+    <failure>has no ZSK and/or no KSK</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="verify_soa_rrsig">
+    <name>verification of the SOA RRSIG</name>
+    <success>the SOA has a correct RRSIG</success>
+    <failure>the SOA has not a correct RRSIG</failure>
+    <explanation/>
+    <details/>
+  </check>
+  
+  <check name="soa_rrsig_expiration">
+    <name>verify that the SOA RRSIG is not expired</name>
+    <success>the SOA RRSIG is not about to expire</success>
+    <failure>the SOA RRSIG is about to expire or is already expired</failure>
+    <explanation/>
+    <details><para>Signature expires on <zcvar name="date"/>.</para></details>
+  </check>
+  
+  <check name="soa_rrsig_validity_period">
+    <name>verify that the SOA RRSIG has a correct lifetime</name>
+    <success>the SOA RRSIG has a good lifetime</success>
+    <failure>the SOA RRSIG has a lifetime too short or too long</failure>
+    <explanation/>
+    <details><para>Signature lifetime is <zcvar name="period"/> and should be 
+    between <zcvar name="min"/> and <zcvar name="max"/> and higher than the TTL
+    (here, <zcvar name="ttl"/>)</para></details>
+  </check>
+
+  <check name="algorithm">
+    <name>efficiency of the RRSIG algorithm</name>
+    <success>A RRSIG with an efficient algorithm has been found</success>
+    <failure>The RRSIG algorithm is (are) not enough efficient</failure>
+    <explanation/>
+    <details><para>Signature algorithm is not efficient enough because: <zcvar name="error"/></para></details>
+  </check>
+
+
+  <check name="key_length">
+    <name>key length</name>
+    <success>The length of the key is enough</success>
+    <failure>The length of the key should be higher for this algorithm</failure>
+    <explanation/>
+    <details><para>the key length is <zcvar name="keylength"/> bits for 
+    the algorithm : <zcvar name="algo"/></para></details> 
+  </check>
+  
+  <check name="ds_and_dnskey_coherence">
+    <name>coherence between DS or DNSKEY given in arguments and DNSKEYs in the zone</name>
+    <success>The given DS or DNSKEY correspond to a DNSKEY in the zone</success>
+    <failure>The given DS or DNSKEY does not correspond to any DNSKEY in the zone</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

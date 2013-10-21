@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: mail.fr,v 1.23 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/09/25 19:14:21
+# REVISION    : $Revision: 1.23 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Shortcuts -->
+  <shortcut>
+    <explanation name="openrelay">
+      <src type="ref">
+        <title>MAPS</title>
+        <para>An Internet mail server performs third-party relay when
+          it processes a message from a non-local sender to a non-local
+          recipient. These days, junk emailers abuse this capability at
+          an alarming rate. They use the stolen capacity to greatly
+          increase the amount of spam they can deliver.</para>
+      </src>
+      <src type="adv" from="zonecheck">
+        <title>ZoneCheck</title>
+        <para>You can perform more complete testing by using the following
+          command: "telnet relay-test.mail-abuse.org", for more information
+          take a look at <uri link="http://www.mail-abuse.org/">http://www.mail-abuse.org/</uri></para>
+      </src>
+    </explanation>
+  </shortcut>
+
+
+
+  <!-- Checks -->
+  <check name="mail_openrelay_domain">
+    <name>domain délégué est un openrelay</name>
+    <success>Le MX principal pour le domaine n'est pas un openrelay</success>
+    <failure>Le MX principal pour le domaine est un openrelay</failure>
+    <explanation sameas="shortcut:openrelay"/>
+    <details><para>La machine indiquée pour la réception du courrier
+      (<zcvar name="mailhost"/>) du domaine semble être un openrelay, 
+      elle permet l'envoi de mél de <zcvar name="from_host"/> à
+      <zcvar name="to_host"/>.</para></details>
+  </check>
+
+
+  <check name="mail_openrelay_hostmaster">
+    <name>domain of the hostmaster email is not an openrelay</name>
+    <success>Le MX principal pour le "hostmaster" n'est pas un openrelay</success>
+    <failure>Le MX principal pour le "hostmaster" est un openrelay</failure>
+    <explanation sameas="shortcut:openrelay"/>
+    <details><para>La machine indiquée pour la réception du courrier
+      (<zcvar name="mailhost"/>) pour le "hostmaster" 
+      (<zcvar name="hostmaster"/>) semble être un openrelay, elle permet
+      l'envoi de mél de <zcvar name="from_host"/> à
+      <zcvar name="to_host"/>.</para></details>
+  </check>
+
+
+  <check name="mail_delivery_postmaster">
+    <name>envoie de mél au "postmaster"</name>
+    <success>Le "postmaster" peut être contacté par mél</success>
+    <failure>Le "postmaster" ne peut pas être contacté par mél</failure>
+    <explanation>
+      <src type="ref" from="rfc1123#p51#5.2.7">
+        <title>IETF RFC1123 (p.51  5.2.7  RCPT Command: RFC-821 Section 4.1.1)</title>
+        <para>A host that supports a receiver-SMTP MUST support the
+          reserved mailbox "Postmaster".</para>
+      </src>
+    </explanation>
+    <details><para>Impossible d'envoyer un email au "postmaster"
+      (<zcvar name="postmaster"/>) à travers les relais:
+      <zcvar name="mxlist"/>.</para></details>
+  </check>
+
+
+  <check name="mail_delivery_hostmaster">
+    <name>envoie de mél au "hostmaster"</name>
+    <success>Le "hostmaster" peut être contacté par mel</success>
+    <failure>Le "hostmaster" ne peut pas être contacté par mél</failure>
+    <explanation/>
+    <details><para>Impossible d'envoyer un email au "hostmaster"
+      (<zcvar name="hostmaster"/>) à travers les relais:
+      <zcvar name="mxlist"/>.</para></details>
+  </check>
+
+
+  <check name="mail_hostmaster_mx_cname">
+    <name>l'enregistrement MX du "hostmaster" n'est pas un alias</name>
+    <success>L'enregistrement MX du "hostmaster" n'est pas un alias</success>
+    <failure>L'enregistrement MX du "hostmaster" ne peut pas être un alias (CNAME)</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc974">
+        <title>IETF RFC974</title>
+        <para>MX records shall not point to an alias defined by a CNAME.</para>
+      </src>
+    </explanation>
+    <details/>
+  </check>
+
+
+  <check name="mail_mx_or_addr">
+    <name>domaine capable de recevoir du courrier (MX, A, AAAA)</name>
+    <success>Le domaine est capable de recevoir du courrier</success>
+    <failure>Le domaine n'a pas de MX ou d'adresse pour delivrer le courrier</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+<!-- FIXME -->
+
+  <test name="mail_delivery">
+    <name>test if mail delivery possible</name>
+  </test>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

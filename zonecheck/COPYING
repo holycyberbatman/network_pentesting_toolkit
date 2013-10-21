@@ -1,0 +1,62 @@
+# $Id: COPYING,v 1.8 2010/06/07 08:51:26 chabannf Exp $
+
+ZoneCheck is copyright AFNIC, 2003-2010.
+
+Originally written by Stephane D'Alu <sdalu@nic.fr>.
+
+Maintained by the ZoneCheck Team at AFNIC.
+
+For technical questions/patches about this software, you can
+contact the team at <zonecheck@nic.fr>.
+For general purpose questions, you can contact AFNIC at <nic@nic.fr>.
+
+---------------------------------------------------------------
+
+ZoneCheck terms of use and distribution:
+
+You can use, modify and distribute ZoneCheck according to the GPL v3
+(GNU General Public License) <URL:http://www.gnu.org/licenses/gpl.html>,
+a copy has been made available in the file 'GPL'.
+To summarize (a lot!), it means you can use ZoneCheck freely (but not
+to link it with software which is not GPL-compatible), you can have 
+the source code, you can distribute it freely (even after modifications)
+BUT you cannot deny these freedoms to the people who receive it: for
+instance, you must provide them with the source code.
+
+Alternatively, if you want to use or distribute a version of ZoneCheck
+in a way which is not compatible with the GPL you *must* get an
+agreement from AFNIC which will give you the right to use the
+following terms. The license is therefore *not* a disjunctive
+license.
+
+----------- Terms after relicencing, for the licencee only ----
+
+Permission is hereby granted, to <<the licencee>> obtaining a copy of
+this software and associated documentation files (the "Software"), to
+deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit
+individuals or organizations to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-- WARNING ----------------------------------------------------
+
+Patch submitters are therefore informed that, for the patches to be
+included, you must agree on this possible relicensing.
+
+---------------------------------------------------------------
+
+References that you may find interesting:
+
+http://www.gnu.org/licenses/licenses.html

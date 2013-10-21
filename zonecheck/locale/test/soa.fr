@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: soa.fr,v 1.29 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.29 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Shortcuts -->
+  <shortcut>
+    <explanation name="email_sntx">
+      <src type="ref" from="rfc" fid="rfc1034#p9">
+        <title>IETF RFC1034 (p.9), RFC1912 (p.3)</title>
+        <para>Email addresses are converted by using the following rule:
+          local-part@mail-domain  ==&gt;  local-part.mail-domain 
+          if local-part contains a dot in should be backslashed 
+          (for 'bind').</para>
+      </src>
+    </explanation>
+    <explanation name="soa_local_policy">
+      <src type="adv">
+        <title>Politique du registre <zcconst name="registry"/></title>
+        <para>Le registre demande que les champs du SOA soient à 
+          l'interieur d'un interval défini:
+          le champ 'expire' doit être entre
+          <zcconst name="soa:expire:min" display="duration"/> et
+          <zcconst name="soa:expire:max" display="duration"/>,
+          le champ 'minimum' entre
+          <zcconst name="soa:minimum:min" display="duration"/> et
+          <zcconst name="soa:minimum:max" display="duration"/>, 
+          le champ 'refresh' entre
+          <zcconst name="soa:refresh:min" display="duration"/> et
+          <zcconst name="soa:refresh:max" display="duration"/>,
+          et enfin le champ 'retry' entre
+          <zcconst name="soa:retry:min" display="duration"/> et
+          <zcconst name="soa:retry:max" display="duration"/>.</para>
+      </src>
+    </explanation>
+  </shortcut>
+
+
+  <!-- Checks -->
+  <check name="soa">
+    <name>présence d'un enregistrement SOA</name>
+    <success>Enregistrement SOA trouvé</success>
+    <failure>Aucun enregistrement SOA présent sur le serveur</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="soa_auth">
+    <name>réponse faisant autorité pour le SOA</name>
+    <success>La réponse pour le SOA fait autorité</success>
+    <failure>La réponse pour le SOA ne fait pas autorité</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="soa_contact_sntx_at">
+    <name>mauvaise utilisation du caractère '@' dans le 'contact' du SOA</name>
+    <success>Aucune mauvaise utilisation du caractere '@' dans le 'contact' du SOA</success>
+    <failure>Le contact contient le caractère '@'</failure>
+    <explanation sameas="shortcut:email_sntx"/>
+    <details/>
+  </check>
+
+
+  <check name="soa_contact_sntx">
+    <name>caractères illégaux dans le contact du SOA</name>
+    <success>Aucun caractère illégal dans le contact du SOA</success>
+    <failure>Le contact contient des caractères illégaux</failure>
+    <explanation sameas="shortcut:email_sntx"/>
+    <details/>
+  </check>
+
+
+  <check name="soa_master_sntx">
+    <name>caractères illégaux dans le 'master' du SOA</name>
+    <success>Aucun caractère illégal dans le 'master' du SOA</success>
+    <failure>Le 'master' du SOA contient des caractères illégaux</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+
+  <check name="soa_master_fq">
+    <name>nom de serveur pleinement qualifié dans le 'master' du SOA</name>
+    <success>Le 'master' est pleinement qualifié</success>
+    <failure>Le nom du serveur dans le 'master' du SOA n'est pas pleinement qualifié</failure>
+    <explanation/>
+    <details><para>Le point ('.') final est certainement manquant dans
+      le fichier de configuration pour le serveur (<zcvar name="mname"/>)
+      indiqué en tant que maître dans le SOA.</para></details>
+  </check>
+
+
+  <check name="soa_serial_fmt_YYYYMMDDnn">
+    <name>numéro de série de la forme AAAAMMJJnn</name>
+    <success>Le numéro de série suit bien la forme AAAAMMJJnn</success>
+    <failure>Le numéro de série n'est pas de la forme AAAAMMJJnn</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc1912#p3">
+        <title>RFC1912 (p.3)</title>
+        <para>The recommended syntax is YYYYMMDDnn (YYYY=year, MM=month,
+          DD=day, nn=revision number).</para>
+      </src>
+     </explanation>
+     <details><para>Le numéro de série <zcvar name="serial"/> ne semble pas 
+       être au format AAAAMMJJnn.</para></details>
+  </check>
+
+
+  <check name="soa_expire">
+    <name>champ 'expire' du SOA entre <zcconst name="soa:expire:min" display="duration"/> et <zcconst name="soa:expire:max" display="duration"/></name>
+    <success>Le champ 'expire' du SOA est entre <zcconst name="soa:expire:min" display="duration"/> et <zcconst name="soa:expire:max" display="duration"/></success>
+    <failure>Le champ 'expire' doit être entre <zcconst name="soa:expire:min" display="duration"/> et <zcconst name="soa:expire:max" display="duration"/></failure>
+    <explanation sameas="shortcut:soa_local_policy"/>
+    <details><para>La valeur du champ 'expire' est 
+      <zcvar name="expire" display="duration"/> et devrait être entre
+      <zcconst name="soa:expire:min" display="duration"/> et
+      <zcconst name="soa:expire:max" display="duration"/>.</para></details>
+  </check>
+
+
+  <check name="soa_minimum">
+    <name>champ 'minimum' du SOA entre <zcconst name="soa:minimum:min" display="duration"/> et <zcconst name="soa:minimum:max" display="duration"/></name>
+    <success>Le champ 'minimum' du SOA est entre <zcconst name="soa:minimum:min" display="duration"/> et <zcconst name="soa:minimum:max" display="duration"/></success>
+    <failure>Le champ 'minimum' doit être entre <zcconst name="soa:minimum:min" display="duration"/> et <zcconst name="soa:minimum:max" display="duration"/></failure>
+    <explanation sameas="shortcut:soa_local_policy"/>
+    <details><para>La valeur du champ 'minimum' est 
+      <zcvar name="minimum" display="duration"/> et devrait être entre
+      <zcconst name="soa:minimum:min" display="duration"/> et
+      <zcconst name="soa:minimum:max" display="duration"/>.</para></details>
+  </check>
+
+
+  <check name="soa_refresh">
+    <name>champ 'refresh' du SOA entre <zcconst name="soa:refresh:min" display="duration"/> et <zcconst name="soa:refresh:max" display="duration"/></name>
+    <success>Le champ 'refresh' du SOA est entre <zcconst name="soa:refresh:min" display="duration"/> et <zcconst name="soa:refresh:max" display="duration"/></success>
+    <failure>Le champ 'refresh' doit être entre <zcconst name="soa:refresh:min" display="duration"/> et <zcconst name="soa:refresh:max" display="duration"/></failure>
+    <explanation sameas="shortcut:soa_local_policy"/>
+    <details><para>La valeur du champ 'refresh' est 
+      <zcvar name="refresh" display="duration"/> et devrait être entre
+      <zcconst name="soa:refresh:min" display="duration"/> et
+      <zcconst name="soa:refresh:max" display="duration"/>.</para></details>
+  </check>
+
+
+  <check name="soa_retry">
+    <name>champ 'retry' du SOA entre <zcconst name="soa:retry:min" display="duration"/> et <zcconst name="soa:retry:max" display="duration"/></name>
+    <success>Le champ 'retry' du SOA est entre <zcconst name="soa:retry:min" display="duration"/> et <zcconst name="soa:retry:max" display="duration"/></success>
+    <failure>Le champ 'retry' doit être entre <zcconst name="soa:retry:min" display="duration"/> et <zcconst name="soa:retry:max" display="duration"/></failure>
+    <explanation sameas="shortcut:soa_local_policy"/>
+    <details><para>La valeur du champ 'retry' est 
+      <zcvar name="retry" display="duration"/> et devrait être entre
+      <zcconst name="soa:retry:min" display="duration"/> et
+      <zcconst name="soa:retry:max" display="duration"/>.</para></details>
+  </check>
+
+
+  <check name="soa_retry_refresh">
+    <name>champ 'retry' du SOA inférieur à celui du 'refresh'</name>
+    <success>Le champ 'retry' du SOA inférieur à celui du 'refresh'</success>
+    <failure>Le champ 'retry' doit être inférieur à celui du 'refresh'</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc1912#p4">
+        <title>IETF RFC1912 (p.4)</title>
+        <para>The 'retry' value is typically a fraction of the 
+          'refresh' interval.</para>
+      </src>
+    </explanation>
+    <details><para>La valeur du champ 'retry' est de 
+      <zcvar name="retry"/> sec, et devrait être inférieure au 
+      'refresh' (<zcvar name="refresh"/> sec).</para></details>
+  </check>
+
+
+  <check name="soa_expire_7refresh">
+    <name>champ 'expire' est au moins 7 fois celui du 'refresh'</name>
+    <success>Le champ 'expire' est au moins 7 fois celui du 'refresh'</success>
+    <failure>Le champ 'expire' doit être au moins 7 fois celui du 'refresh'</failure>
+    <explanation/>
+    <details><para>La valeur du champ 'expire' est de 
+      <zcvar name="expire"/> sec, et devrait être 7 fois plus grande que 
+      celle du 'refresh' (<zcvar name="refresh"/> sec).</para></details>
+  </check>
+
+
+  <check name="soa_ns_cname">
+    <name>champ 'master' du SOA n'est pas un alias</name>
+    <success>Le champ 'master' du SOA n'est pas un alias</success>
+    <failure>Le champ 'master' du SOA ne doit pas pointer sur un alias CNAME</failure>
+    <explanation sameas="shortcut:ns_cname"/>
+    <details><para>Le serveur maître (<zcvar name="master"/>) indiqué dans
+      le SOA est un alias CNAME sur <zcvar name="alias"/>.</para></details>
+  </check>
+
+
+  <check name="soa_vs_any">
+    <name>cohérence entre enregistrements SOA et ANY</name>
+    <success>Enregistrements SOA et ANY cohérents</success>
+    <failure>Enregistrements SOA et ANY incohérents</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <check name="soa_drift_serial">
+    <name>dérive excessive du numéro de série avec celui du serveur primaire</name>
+    <success>Dérive inexistant ou acceptable du numéro de série avec celui du
+ serveur primaire</success>
+    <failure>Dérive excessive du numéro de série avec celui du serveur primaire</failure>
+    <explanation/>
+    <details><para>La valeure attendue pour le numéro de série (en prenant 
+       en consideration une éventuelle dérive) aurait due être supérieure
+       à <var name="serial_min"/>, mais elle est de <var name="serial_this"/>
+       contrairement à celui indiqué sur <var name="host_ref"/> qui 
+       est de <var name="serial_ref"/>).</para></details>
+  </check>
+
+  <check name="soa_coherence_serial">
+    <name>cohérence du numéro de série avec celui du serveur primaire</name>
+    <success>Le numéro de série est cohérent avec celui du serveur primaire</success>
+    <failure>Le numéro de série n'est pas cohérent avec celui du serveur primaire</failure>
+    <explanation/>
+    <details><para>Le numéro de série obtenu (<zcvar name="serial_this"/>)
+      est différent de celui indiqué sur <zcvar name="host_ref"/>
+      (<zcvar name="serial_ref"/>).</para></details>
+  </check>
+
+  <check name="soa_coherence_contact">
+    <name>cohérence du contact administratif avec celui du serveur primaire</name>
+    <success>Le contact est cohérent avec celui du serveur primaire</success>
+    <failure>Le contact n'est pas cohérent avec celui du serveur primaire</failure>
+    <explanation/>
+    <details><para>Le contact obtenu (<zcvar name="rname_this"/>)
+      est différent de celui indiqué sur <zcvar name="host_ref"/>
+      (<zcvar name="rname_ref"/>).</para></details>
+  </check>
+
+
+  <check name="soa_coherence_master">
+    <name>cohérence du champ 'master' du SOA avec celui du serveur primaire</name>
+    <success>Le champ 'master' du SOA est cohérent avec celui du serveur primaire</success>
+    <failure>Le champ 'master' du SOA est incohérent avec celui du serveur primaire</failure>
+    <explanation/>
+    <details><para>Le serveur maître indiqué dans le SOA 
+      (<zcvar name="mname_this"/>) est différent de celui indiqué 
+      sur <zcvar name="host_ref"/> (<zcvar name="mname_ref"/>).</para></details>
+  </check>
+
+
+  <check name="soa_coherence">
+    <name>cohérence du SOA avec celui du serveur primaire</name>
+    <success>Le SOA est cohérent avec celui du serveur primaire</success>
+    <failure>Le SOA est incohérent avec celui du serveur primaire</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

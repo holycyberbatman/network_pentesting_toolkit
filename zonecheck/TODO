@@ -1,0 +1,44 @@
+# $Id: TODO,v 1.74 2010/06/01 15:36:06 chabannf Exp $
+
+
+add preset to inetd, cgi
+
+version = 2.1.0
+	Tests:	- Implement AXFR tests (only framework exists)
+		- base de donnees reseau (RIR) 
+		- test connectivite avec plusieurs adresses IP 
+
+	handle in test1 the case when a 'test' (ie: switch) fails
+	make it more clear that 'primary' is not the primary when hidden in SOA
+
+	Finish xml publisher and DTD
+	IDN
+	check for label_xpl defined elsewhere
+	special timeout return code
+	Tests:	- check coherence between parent glue and domain
+		- Improve loopback delegation detection
+		- chk_soa (should check for EXACTLY one record)
+		- tst_loopback: check for A or AAAA record corresponding to PTR
+	Round robin on dns record in NResolv for address resolution
+	Check for authoritative answer in NResolv
+
+version = 3.0.0
+	stand alone package for resolver library
+	add checking of message catalog and test set
+	fix behaviour in case of test failed
+
+	edns0
+	New scheduling engine (++++)          \
+	New test scheme (ie: tst_*) (++++)    |
+	Have a useconf strict (+++)
+	Detection of failure due to dependencies [doomed]
+	A test can change the severity (ex: test soa.ttl between ns) (+++)
+	Cachemanager destroy method (and use it) (++)
+	Try zonecheck with the native thread ruby implementation
+	Remove the need of a tagonly_supported in Report
+	Finish implementing nresolv (Bitstring, DNSSEC)
+	NResolv library able to inspect all the Sections (++++)
+	Test:	- whois for fr
+
+version = 3.1.0
+	DNSSEC

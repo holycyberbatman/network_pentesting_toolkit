@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: misc.fr,v 1.24 2010/06/01 15:36:07 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.24 $ 
+# DATE        : $Date: 2010/06/01 15:36:07 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+
+  <!-- Checks -->
+  <check name="ns_reverse">
+    <name>existance du nom correspondant à l'adresse IP du serveur</name>
+    <success>Le nom correspondant à l'adresse IP du serveur a été trouvé</success>
+    <failure>Impossible de trouver le nom correspondant à l'adresse IP du serveur</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="ns_matching_reverse">
+    <name>vérification du nom correspondant à l'adresse IP du serveur</name>
+    <success>Le nom correspondant à l'adresse IP correspond au nom du serveur</success>
+    <failure>Incoherence entre le nom correspondant à l'adresse IP et celui du serveur</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="not_recursive">
+    <name>serveur de nom n'autorisant pas la récursion</name>
+    <success>Le serveur de nom n'est pas récursif</success>
+    <failure>Le serveur de nom autorise les requêtes récursives</failure>
+    <explanation>
+      <src type="ref">
+        <title>ZoneCheck</title>
+        <para>Si vous configurez le serveur de noms pour répondre aux
+          requêtes récursives, cela implique que vous acceptez que 
+          n'importe qui l'utilise pour résoudre n'importe quel type
+          de requêtes.</para>
+        <para>Cela permet notamment l'utilisation de votre serveur
+        pour amplifier des attaques par déni de service et c'est donc
+        très déconseillé. Voir
+        http://www.afnic.fr/actu/nouvelles/general/NN20060404.
+        </para>
+      </src>
+    </explanation>
+    <details/>
+  </check>
+
+
+  <check name="correct_recursive_flag">
+    <name>serveur de nom réellement récursif</name>
+    <success>Le serveur est récursif comme annoncé</success>
+    <failure>Le serveur dit être récursif mais ne l'est pas</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="given_nsprim_vs_soa">
+    <name>serveur de nom donné comme primaire est primaire</name>
+    <success>Le serveur de nom primaire correspond à celui donné</success>
+    <failure>Le serveur de nom primaire ne correspond pas à celui donné</failure>
+    <explanation/>
+    <details><para>Le serveur de nom primaire (<zcvar name="primary"/>)
+      ne correspond pas à celui indiqué 
+      (<zcvar name="given_primary"/>).</para></details>
+  </check>
+
+
+  <check name="given_ns_vs_ns">
+    <name>cohérence avec la liste des serveurs de noms donnée</name>
+    <success>La liste des serveurs recuperée correspond à celle donnée</success>
+    <failure>La liste des serveurs récupérée ne correspond pas à celle donnée</failure>
+    <explanation/>
+    <details><para>La liste des serveurs de noms donnée 
+      (<zcvar name="list_from_param"/>) n'est pas cohérente avec celle
+      récupérée sur la zone (<zcvar name="list_from_ns"/>).</para></details>
+  </check>
+
+
+<!-- FIXME -->
+
+  <test name="recursive_server">
+    <name>test if server is recursive</name>
+  </test>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

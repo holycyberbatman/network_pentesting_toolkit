@@ -1,0 +1,26 @@
+# $Id: input.txt,v 1.2 2010/06/01 15:36:07 chabannf Exp $
+
+CGI:
+
+lang <string>
+quiet <bool>
+one   <bool>
+verbose
+  intro    <bool>
+  explain  <bool>
+  progress [ <none> | counter | testdesc ]
+output
+  format [ html | text ]
+error
+  errorlvl  [ | allfatal | allwarning ]
+  errorstop [ stop | nostop ]
+transp
+  transp3 [ ipv4 / ipv6 ]
+  transp4 [ udp | tcp | std ]
+category
+  chkmail   <bool>
+  chkwhois  <bool>
+  chkzone   <bool>
+ns
+  ns0..ns7, ips0..ips7
+zone <string>

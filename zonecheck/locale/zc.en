@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: zc.en,v 1.82 2010/06/25 08:41:27 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.82 $ 
+# DATE        : $Date: 2010/06/25 08:41:27 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+<!-- Word -->
+<section name="word">
+  <tag name="generic">generic</tag>
+  <tag name="warning">warning</tag>
+  <tag name="warning_id">w</tag>
+  <tag name="fatal">fatal</tag>
+  <tag name="fatal_id">f</tag>
+  <tag name="info">info</tag>
+  <tag name="info_id">i</tag>
+  <tag name="ok">ok</tag>
+  <tag name="ok_id">o</tag>
+  <tag name="testing">testing</tag>
+  <tag name="unexpected">unexpected</tag>
+  <tag name="line">line</tag>
+  <tag name="error">error</tag>
+  <tag name="perfect">perfect</tag>
+  <tag name="quit">quit</tag>
+  <tag name="abort">abort</tag>
+  <tag name="details">details</tag>
+  <tag name="references">references</tag>
+  <tag name="elements">elements</tag>
+  <tag name="form">form</tag>
+  <tag name="name">name</tag>
+  <tag name="second_abbr">sec</tag>
+</section>
+
+<section name="report">
+  <tag name="all_servers">all servers</tag>
+</section>
+
+<section name="config">
+</section>
+
+<!-- Titles -->
+<tag name="t_single">single</tag>
+
+
+<!-- Tag -->
+<tag name="tag_ref">Ref</tag>
+<tag name="tag_adv">Adv</tag>
+
+<!-- -->
+<tag name="res_success_but">SUCCESS (but %d warning(s))</tag>
+<tag name="res_success">SUCCESS</tag>
+<tag name="res_failure">FAILURE</tag>
+<tag name="res_failure_and">FAILURE (and %d warning(s))</tag>
+
+<tag name="ns_zone">zone</tag>
+<tag name="ns_ns">ns</tag>
+<tag name="ns_primary">primary</tag>
+<tag name="ns_secondary">secondary</tag>
+<tag name="ns_ips">IPs</tag>
+
+<tag name="title_zoneinfo">Zone information</tag>
+<tag name="title_progress">Progress</tag>
+<tag name="title_testres">Test results</tag>
+<tag name="title_status">Final status</tag>
+
+<tag name="pgr_progress">Progression</tag>
+<tag name="pgr_test">Tests</tag>
+<tag name="pgr_time">Time</tag>
+<tag name="pgr_speed">Speed</tag>
+<tag name="pgr_speed_unit">T/s</tag>
+<tag name="pgr_na">N/A</tag>
+
+
+<!-- -->
+<tag name="problem_file">problem while opening/reading file: %s</tag>
+
+  <!-- Input -->
+  <section name="input">
+    <tag name="unsupported_method">Input method '%s' unsupported</tag>
+    <tag name="suspicious_method">Input method '%s' suspicious</tag>
+    <tag name="version">PROGNAME: version %s</tag>
+    <tag name="unsupported_domain">No mapping able to process '%s'</tag>
+  </section>
+
+<!-- Config -->
+  <section name="config">
+    <tag name="check_unknown">check '%s' unavailable</tag>
+    <tag name="unknown_profile">Unknown profile '%s'</tag>
+    <tag name="unknown_preset">Unknown preset '%s'</tag>
+    <tag name="error_in_preset">Error in preset '%s'</tag>
+  </section>
+
+
+
+  <section name="param">
+    <tag name="ns_name">Nameserver (%s) is not a hostname</tag>
+    <tag name="ns_ip">Address (%s) is not an IP address</tag>
+  </section>
+
+<!-- Exceptions -->
+
+<tag name="xcp_param_fqdn_required">Absolute domain name required</tag>
+<tag name="xcp_param_domain_expected">One domainname expected</tag>
+<tag name="xcp_param_domain_nxdomain">The domain %s has not been found through the local resolver</tag>
+<tag name="xcp_param_soa">Unable to find a SOA record for that domain</tag>
+<tag name="xcp_param_primary_soa">Unable to find primary nameserver (SOA)</tag>
+<tag name="xcp_param_nameservers_ns">Unable to find nameservers (NS)</tag>
+<tag name="xcp_param_prim_ns_soa">Unable to identify primary nameserver (NS vs SOA)</tag>
+<tag name="xcp_param_nameserver_is_ip">The nameserver %s is an IP address and should be a name</tag>
+<tag name="xcp_param_nameserver_ips">Unable to find nameserver IP address(es) for %s</tag>
+<tag name="xcp_param_ns_bad_ips">Given IP address(es) for %s not matching DNS records</tag>
+<tag name="xcp_param_output_support">Selected output class doesn't support '%s'</tag>
+<tag name="xcp_param_ip_no_stack">%s not supported on that host</tag>
+<tag name="xcp_param_unknown_modopt">Unknown modifier '%s' for '%s' option</tag>
+<tag name="xcp_param_local_resolver">IP address expected for the local resolver</tag>
+
+<tag name="dig_print">Print the requests done by tha test: </tag>
+
+<tag name="xcp_testmanager_badclass">class '%s' doesn't derive from %s</tag>
+<tag name="xcp_testmanager_test_exists">test '%s' defined in classes '%s' and '%s'</tag>
+<tag name="xcp_testmanager_check_exists">check '%s' defined int class '%s' and '%s'</tag>
+
+<tag name="param_too_many_arguments">too many arguments (%s arguments) have been given to the option %s</tag>
+
+  <!-- Dnsruby rcode -->
+  <section name="resolv:rcode">
+    <tag name="servfail">server failure</tag>
+    <tag name="refused">answer refused from server</tag>
+    <tag name="nxdomain">domain doesn't exist</tag>
+    <tag name="notimp">query not implemented on server</tag>
+  </section>
+
+  <section name="dnssec">
+    <tag name="algorithm:unknown">Unknown algorithm</tag>
+    <tag name="algorithm:deprecated">Deprecated algorithm</tag>
+  </section>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

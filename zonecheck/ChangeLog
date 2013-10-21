@@ -1,0 +1,206 @@
+# $Id: ChangeLog,v 1.60 2011/04/11 08:32:38 kmkaplan Exp $
+
+2011-04-11 ZoneCheck-3.0.5
+    * Feature: ds-rdata can be passed as CGI arguments.
+    * Bug #32746: "IWBN to give raw DS as argument to --securedelegation" fixed
+    * Bug #32125: "Invalid trust anchors in --securedelegation are silently ignored" fixed
+    * Bug #32123: "When several --securedelegation are given, only the last one is used" fixed
+    * Bug: glues at the apex were not ignored by the test delegation_udp512_additional and for the cachability test. Fixes a bug introduced on 2010-06-01T15:36 during the migration do Dnsruby.
+
+2010-11-22 ZoneCheck-3.0.4
+    * Bug #31382: "Test of IP address syntax does not work when there are
+	several addresses" fixed
+	
+2010-10-05 ZoneCheck-3.0.3
+    * Bug #31169: "Checking fails when the MX is the domain itself and is not yet installed" fixed
+    * Bug #31163: "non-FQDN NS with FQDN domain" fixed
+	
+2010-06-29  ZoneCheck-3.0.2
+    * input: cgi bug: [""].empty? => false
+    * zc: change the call of Locale::new to ZoneCheck::Locale::new, so that 
+      ZoneCheck and ruby-locale can live together
+    * test: change default severity for chk_soa_coherence and 
+      chk_soa_master_coherence to warning 
+
+2010-06-28  ZoneCheck-3.0.1
+    * input: bug empty DNSKEY field
+    * zc: bug wrong number of arguments (again)
+    * debug: store all messages, and print the matching messages if flags change
+    * zc: add compatibility with ruby 1.9.1
+    * zc: can be used with either the package dnsruby or the gem dnsruby
+    * input: change html input files, so that DNSSEC tests are off by default
+    * test: chk_algorithm now checks all the SOA RRSIG not just the first one
+    * test: change the error message of chk_algorithm
+    
+
+2010-06-22  ZoneCheck-3.0.0
+    * rootservers: add the new IPv6 address for i.root-servers.net
+    * zc: nameserver name can not be an IP address
+    * installer: bad interpreter bug fix
+    * installer: dependency to rubygems-dnsruby >= 1.47 added in spec file
+
+2010-06-17  ZoneCheck-3.0.0 RC2
+    * publisher: change error message when an exception is thrown while testing 
+      the "primary nameserver" in a "coherence test"
+    * test: chk_edns now ask for ANY with DNSSEC instead of NS
+    * test: error message bug fix for one_dnskey and has_soa_rrsig
+    * zc: query_timeout, retyr_times and retry_delay are now read in zc.conf
+    * debug: wrong number of arguments bug fix for some debug output
+    * zc: cache mutex lock bug fix
+    * output: fix the DNSKEY textarea width
+
+2010-06-15  ZoneCheck-3.0.0 RC1
+    * test: new tests about DNSSEC (ds_and_dnskey_coherence, one_dnskey,
+    several_dnskey, has_soa_rrsig, zsk_and_ksk, key_length, soa_rrsig_expiration,
+    soa_rrsig_validity_period, algorithm, verify_soa_rrsig) (#20334)
+    * test: new test on edns support (#28694)
+    * nresolv: replace NResolv by Dnsruby 
+    * zc: an option make all tests performed with or without edns0 (#29120)
+    * zc: classes are in module ZoneCheck (#19875)
+    * input, output: GTK interface removed (#4139)
+    * input: inetd input removed
+    * input: add new options (edns, securedelegation) to HTML and CLI
+    * i18n: add a debug message when language is not found (#28871)
+    * zc: batch mode option removed (workaround in bug report) (#8474, #30032)
+      
+
+2010-05-26  ZoneCheck-2.1.1
+    * publisher: escape http query parameters to prevent XSS attacks (#29967) 
+    * installer: patch_cgi path typo removed 
+
+2010-02-12  ZoneCheck-2.1.0
+    * nresolv: zonecheck ask for a type A and AAAA instead of ANY
+      in order to have ip adresses of nameservers (#13035)
+    * test: fixed bug in serial number test (#28470)
+    * test: ZoneCheck does not warn against IDN names anymore (#7816)
+    * test: fixed bug with -obh option (#13227,#16194,#16195)
+    * test: fixed compliance with SMTP request (#22925)
+    * test: change ICMP TTL/Opcount to 64 (#28761)
+    * test: added a timeout on SMTP request (#15228)
+    * test: fixed bug in soa_coherence (#16317)
+    * test: fixed bug in ns_sntx (#18889)
+    * l10n: removed typos (#10339,#21018,#22362)
+
+2008-10-29  ZoneCheck-2.0.8
+    * config: updated afnic profile
+
+2004-05-??  ZoneCheck-2.0.4
+    * l10n: removed typos
+    * test: added details for 'ns_ip'
+    * nresolv: fixed bug in getaddress
+
+2004-03-08  ZoneCheck-2.0.3
+    * dbg: fixed debuging output for nresolv
+    * dbg: added smtp transaction as debuging information for mail
+    * doc: fixed apache configuration example
+    * zc: fixed locale interpretation
+    * zc: added control on IP stack detection (ZC_IP_STACK)
+    * zc: added environment variable to control config parameter
+    * install: WWWDIR option allows changing static web page directory
+    * nresolv: UDP retry a little less aggressive
+    * publisher: option 'nojavascript' and 'ihtml' for html
+    * misc: B rootserver IP addresse changed
+    * config: fixed profile selection
+    * html: use of option group for the profile selection
+    * test: follow cname chain when checking for reverse
+
+2004-01-20  ZoneCheck-2.0.2
+    * test: fixed bugs in mail_delivery_{postmaster,hostmaster}
+    * zc: fixed bugs in XML parsing
+    * zc: fixed --INPUT not working in some cases
+    * test: only the default profile is enabled in the configuration file
+    * input: gtk interface is still partially broken
+    * input: fixed frozen object in cli
+
+2004-01-05  ZoneCheck-2.0.1
+    * test: preeval doesn't report fatal error anymore
+    * locale: removed wrong explanation for ping (french)
+    * zc: automatically use ruby-libxml implementation if available
+    * zc: fixed handling of preset
+    * test: all_same_asn test activated in the default profile
+    * publisher: removed right-click menu for html pages
+    * test: added details for mx_cname test
+
+2003-12-01  ZoneCheck-2.0.0
+    * publisher: protect quote in javascript string
+    * test: re. use the same profile as fr.
+    * zc: renamed profile fr to afnic
+    * test: improved ip_bogon to handle NXDOMAIN responses
+    * test: tcp connectivity has an 8 seconds timeout
+    * nresolv: fix decoding of TXT records
+    * test: new test to ensure different AS (chk_all_same_asn)
+
+2003-11-18  ZoneCheck-2.0.0b10
+    * misc: fixed bug in installer
+    * dbg: added debugging information
+    * test: added details for email test 
+    * zc: explanations are formated automatically
+    * config/msgcat: use of xml file format
+    * test: soa_{refresh,retry,minimum,expire} are configurable
+    * test: delegation_udp512* give the exceding size
+    * publisher: link to the external reference
+    * zc: added profile selection
+    * zc: added preset configuration
+
+2003-10-27  ZoneCheck-2.0.0b9
+    * dbg: time the execution of test
+    * www: form can be submited by pressing enter
+    * test: fix chk_aaaa test
+    * cfg: use -n to disable name resolution for ping commande
+    * test: use of alternative rootserver possible in chk_root_server_*
+    * test: chk_root_server_* now give detailed information
+    * test: checking of delegation response size chk_delegation_udp512*
+    * nresolv: able to encode NS, A, AAAA records
+    * zc: fixed wrong exit code when 'no stop on fatal' was enabled
+    * zc: option --resolver is not necessary anymore on windows
+    * zc: added statistics for web page
+    * test: check for non recursive server (chk_not_recursive)
+    * misc: new installation procedure (using ruby only)
+    * misc: add zonecheck.spec
+
+2003-10-02  ZoneCheck-2.0.0b8
+    * test: added chk_soa_coherence
+    * l10n: improved chk_mx_ip description
+    * etc: deal with ip6.int as with arpa
+    * main: change handling of custom version (no more slave mode)
+    * main: fixed bug in is_resolvable?
+    * test: reduced timeout on tcp for mail connection
+    * test: more in depth check of tcp connection (chk_tcp)
+    * mail: fixed open relay detection
+    * test: catch connection refused in chk_udp
+    * test: aaaa query behaviour
+    * test: fixed bug in chk_given_nsprim_vs_soa
+    * nresolv: added code for handling lost of tcp connection
+
+2003-09-01  ZoneCheck-2.0.0b7
+    * i18n/l10n: better handling of locale (and encoding)
+    * input: added inetd mode
+    * doc: man page for zonecheck cli
+    * doc: general documentation has been sligthy completed
+    * all: minor bug fixes
+
+2003-08-11  ZoneCheck-2.0.0b6
+    * input: removed excessive sanity check for input parameter
+    * all: changed strings "" to '' when possible
+    * dbg: improved debugging facility (multiline, lazy evaluation)
+    * publisher: 'fatalonly' flag to only print fatal errors
+    * test: added dbgmsg to ease login of messages during test execution
+    * test: correct 'chk_recursive' test
+    * msgcat: reload method cleanup
+
+2003-04-29  Stephane D'Alu  <sdalu@nic.fr>
+    * all: GPL version fixed to v2
+
+2003-04-28  Stephane D'Alu  <sdalu@nic.fr>
+    * report: now provide 'byseverity' and 'byhost'
+    * report: can generate the list of successful tests
+    * publisher: able to report 'testname'
+
+2003-03-21  Stephane D'Alu  <sdalu@nic.fr>
+    * test: added chk_mail_hostmaster_mx_cname
+    * zc: IPv4 stack detection
+    * i18n/10n: french translation of web pages
+    * nresolv: skip unknown dns record
+
+2003-03-18  Stephane D'Alu  <sdalu@nic.fr>
+    * i18n/l10n: UTF-8 output support, locale in UTF8

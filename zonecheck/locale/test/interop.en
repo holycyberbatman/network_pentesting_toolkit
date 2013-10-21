@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: interop.en,v 1.5 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2003/09/23 15:33:12
+# REVISION    : $Revision: 1.5 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Checks -->
+  <check name="aaaa">
+    <name>behaviour against AAAA query</name>
+    <success>Correct behaviour against AAAA query</success>
+    <failure>Misbehaviour against AAAA query</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+
+  <check name="cname">
+    <name>behaviour against CNAME query</name>
+    <success>Correct behaviour against CNAME query</success>
+    <failure>Misbehaviour against CNAME query</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

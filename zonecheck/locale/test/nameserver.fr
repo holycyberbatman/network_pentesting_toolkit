@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: nameserver.fr,v 1.19 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.19 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Checks -->
+  <check name="ip_private">
+    <name>adresse dans un réseau privé</name>
+    <success>Aucune adresse n'a été allouée dans un réseau privé</success>
+    <failure>L'adresse a été allouée dans un réseau privé</failure>
+    <explanation>
+      <src type="ref" from="rfc" fid="rfc1918">
+        <title>IETF RFC1918 (3. Private Address Space)</title>
+        <para>The Internet Assigned Numbers Authority (IANA) has reserved
+          the following three blocks of the IP address space for private
+          internets: 10/8, 172.16/12, 192.168/16.</para>
+      </src>
+    </explanation>
+    <details/>
+  </check>
+
+
+  <check name="ip_bogon">
+    <name>adresse faisant partie de la liste des 'bogon'</name>
+    <success>Aucune adresse ne fait partie des 'bogon'</success>
+    <failure>Présence d'adresses listées parmi les 'bogon'</failure>
+    <explanation>
+      <src type="ref">
+        <title>http://www.cymru.com/Bogons/</title>
+        <para>A bogon prefix is a route that should never appear in the
+          Internet routing table. A packet routed over the public Internet
+          (not including over VPN or other tunnels) should never have a
+          source address in a bogon range. These are commonly found as the
+          source addresses of DDoS attacks.</para>
+      </src>
+    </explanation>
+    <details><para>Classé parmi les 'bogon': 
+      <zcvar name="addresses"/>.</para></details>
+  </check>
+
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

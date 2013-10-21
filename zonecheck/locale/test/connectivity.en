@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: connectivity.en,v 1.18 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.18 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <shortcut>
+    <explanation name="connectivity_udp_tcp">
+      <src type="ref" from="rfc" fid="rfc1035#p32#4.2">
+        <title>IETF RFC1035 (p.32 4.2. Transport)</title>
+        <para>The DNS assumes that messages will be transmitted as 
+          datagrams or in a byte stream carried by a virtual circuit.
+          While virtual circuits can be used for any DNS activity, 
+          datagrams are preferred for queries due to their lower 
+          overhead and better performance.</para>
+      </src>
+    </explanation>
+  </shortcut>
+
+  <check name="icmp">
+    <name>ICMP answer</name>
+    <success>Host replies to ICMP requests</success>
+    <failure>Host doesn't reply to ICMP requests (firewall?)</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <check name="udp">
+    <name>UDP connectivity</name>
+    <success>Server replies to UDP DNS request on port 53</success>
+    <failure>Server doesn't listen/answer on port 53 for UDP protocol</failure>
+    <explanation sameas="shortcut:connectivity_udp_tcp"/>
+    <details/>
+  </check>
+
+  <check name="tcp">
+    <name>TCP connectivity</name>
+    <success>Server replies to TCP DNS request on port 53</success>
+    <failure>Server doesn't listen/answer on port 53 for TCP protocol</failure>
+    <explanation sameas="shortcut:connectivity_udp_tcp"/>
+    <details/>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

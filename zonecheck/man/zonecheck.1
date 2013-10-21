@@ -1,0 +1,508 @@
+.\" $Id: zonecheck.1,v 1.24 2011/03/11 16:09:17 kmkaplan Exp $
+.
+.\" 
+.\" CONTACT     : zonecheck@nic.fr
+.\" AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+.\"
+.\" CREATED     : 2003/08/26 10:20:35
+.\" REVISION    : $Revision: 1.24 $ 
+.\" DATE        : $Date: 2011/03/11 16:09:17 $
+.\"
+.\" CONTRIBUTORS: (see also CREDITS file)
+.\"
+.\"
+.\" LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+.\" COPYRIGHT   : AFNIC (c) 2003
+.\"
+.\" This file is part of ZoneCheck.
+.\"
+.\" ZoneCheck is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 3 of the License, or
+.\" (at your option) any later version.
+.\" 
+.\" ZoneCheck is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with ZoneCheck; if not, write to the Free Software Foundation,
+.\" Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+.\"
+.
+.
+.de c
+.\" this is like a comment request when escape mechanism is off
+..
+.
+.eo
+.
+.c ---------------------------------------------------------------------
+.
+.c
+.de List
+.  TP 2m
+.  nop \)\[bu]
+..
+.
+.ec
+.\" End of macro definitions
+.
+.
+.TH ZONECHECK 1 "26 January 2003"
+.SH NAME
+zonecheck \- DNS zone checking tool
+.SH SYNOPSIS
+.na
+.B zonecheck 
+[
+.B \-hqV
+] [
+.B \-voet
+.I opt
+] [
+.B -46
+] [
+.B \-c
+.I conf
+] 
+.br
+.ti +10
+[
+.B \-n
+.I nslist
+] [
+.B \-s
+.I key
+]
+.I domainname
+.br
+.ad
+.SH DESCRIPTION
+.LP
+The DNS is a critical resource for every network application, quite important to ensure that a zone or domain name is correctly configured in the DNS.
+
+\fIZoneCheck\fP is intended to help solving misconfigurations or inconsistencies usually revealed by an increase in the latency of the application, up to the output of unexpected/inconsistant results.
+.
+.SH OPTIONS
+.IP \fINOTE:\fB
+It doesn't necessary make sense to combine some options together, if
+that case happens the most recent option will be taken into account,
+silently discarding the others.
+.TP
+\fB--lang\fR \fIlang\fR
+Select another language (en, fr, ...). The syntax is the same as for the
+environment variable \fILANG\fR.
+.
+.TP
+\fB--debug\fR, \fB-d\fR \fIlvl\fR
+Select the debugging messages to print or activate debugging code.
+This parameter will override the value of the environment variable \fIZC_DEBUG\fR.
+.br
+The available options are:
+  0x0001 : Initialisation
+  0x0002 : Localization / Internationalisation
+  0x0004 : Configuration
+  0x0008 : Autoconf
+  0x0010 : Loading tests
+  0x0020 : Tests performed
+  0x0040 : Debugging messages from tests
+  0x0400 : Information about cached object
+  0x0800 : Debugger itself
+ 
+  0x1000 : Crazy Debug, don't try this at home!
+  0x2000 : Dnsruby library debugging messages
+  0x4000 : Disable caching
+  0x8000 : Don't try to rescue exceptions
+.TP
+\fB--help\fR, \fB-h\fR
+Show a short description of the different options available in \fIZoneCheck\fR.
+.
+.TP
+\fB--version\fR, \fB-V\fR
+Display the version and exit.
+.
+.TP
+\fB--batch\fR, \fB-B\fR \fIfilename\fR
+Depreciated option. You can use this script instead :
+.br
+  for domain in `cat list_dom`; do
+    echo "Testing $domain"
+    zonecheck $domain
+  done
+.
+.TP
+\fB--config\fR, \fB-c\fR \fIfilename\fR
+Specify the location of the configuration file (default is \fIzc.conf\fR).
+.
+.TP
+\fB--testdir\fR \fIdirectory\fR
+Location of the directory holding the tests definition.
+.
+.TP
+\fB--profile\fR, \fB-P\fR \fIprofilename\fR
+Force uses of profile \fIprofilename\fR.
+.
+.TP
+\fB--category\fR, \fB-C\fR \fIcatlist\fR
+Limit the test to perform to the categories specified by \fIcatlist\fR.
+The syntax for the catgory description is as follow:
+  allow=[+|]    disallow=[-|!]    subcomponent=:    separator=,
+  ex: dns:soa,!dns,+
+      don't perform DNS tests that are not SOA related
+.
+.TP
+\fB--test\fR, \fB-T\fR \fItestname\fR
+\fItestname\fR is the test to perform. In this case failing to pass
+the test is considered as fatal.
+.
+.TP
+\fB--testlist\fR
+List all the tests available.
+.
+.TP
+\fB--testdesc\fR \fIdesctype\fR
+Give a description of the test, the possible values for \fIdesctype\fR
+are \fBname\fR, \fBsuccess\fR, \fBfailure\fR, \fBexplanation\fR.
+.
+.TP
+\fB--resolver\fR, \fB-r\fR \fIresolver\fR
+Resolver to use (only IP address is accepted) for finding the information 
+about the tested zone,
+by default the name servers used are the one specified in 
+\fI/etc/resolv.conf\fR. Note that for finding the name servers the zone
+should already have been delegated.
+.
+.TP
+\fB--ns\fR, \fB-n\fR \fInslist\fR
+List of nameservers for the domain. Nameservers name are separated by 
+a semicolon, the name can be followed by the equal sign and its
+IP addresses separated by a colon.
+.br
+This can give the following example: ns1;ns2=ip1,ip2;ns3=ip3
+.
+.TP
+\fB--securedelegation\fR, \fB-s\fR \fI[dsordnskey]\fR
+Force the execution of the full DNSSEC profile. Arguments are optional. 
+You can precise the Trust Anchor of your zone by giving the DNSKEY 
+or the DS and the algorithm used to hash your key. Several Trust
+Anchors can be specified, separated by commas (in that case, they _all_
+have to match.)
+.br
+This can give the following example:
+  \fBDNSKEY:af1Bs0F+4rg-g19,DS:eAg7P4J1qfMg:SHA-1 \fP
+  \fBDS:eAg7P4J1qfMg:SHA-1\fP
+  \fBDS-RDATA:5991 8 2 46DB8A99F9125B1F88AAC74DF7EC3FFCCC13CE7412C3BEBB2CB93BED4A05A960\fP
+  \fBDNSKEY:af1Bs0F+4rg-g19\fP
+.
+.TP
+\fB--quiet\fR, \fB-q\fR
+Don't display extra titles.
+.
+.TP
+\fB--one\fR, \fB-1\fR
+Only display the most relevant message in a compact format.
+.
+.TP
+\fB--tagonly\fR, \fB-g\fR
+Display only tag. This option should be used for scripting.
+.
+.TP
+\fB--verbose\fR, \fB-v\fR \fIoptions\fR
+Display extra information, they can be prefix by '-' or '!'
+to remove the effect, available options are:
+.
+.RS
+.TP
+\fBintro\fR, \fBi\fR
+Print a short summary about the domain name and its nameservers.
+.TP
+\fBtestname\fR, \fBn\fR
+Print the name of the test when reporting a test status.
+.TP
+\fBexplain\fR, \fBx\fR
+Print an explanation for failed tests (reference to RFC, ...).
+.TP
+\fBdetails\fR, \fBd\fR
+Print a detailed description of the failure (name or value of the resource involved).
+.TP
+\fBreportok\fR, \fBo\fR
+Report test even if they passed.
+.TP
+\fBfatalonly\fR, \fBf\fR
+Only print fatal errors.
+.TP
+\fBtestdesc\fR, \fBt\fR
+Print the test description before performing it.
+.TP
+\fBcounter\fR, \fBc\fR
+Display a test progression bar (this option is not always available
+according to the output media).
+.
+.IP \fINOTE:\fB
+\fBtestdesc\fR and \fBcounter\fR are mutually exclusive.
+.RE
+.
+.TP
+\fB--output\fR, \fB-o\fR \fIoptions\fR
+Output rendering/format selection, avalaible options are:
+.RS
+.TP
+\fBbyseverity\fR, \fBbs\fR [default]
+Output is sorted/merged by severity.
+.TP
+\fBbyhost\fR, \fBbh\fR
+Output is sorted/merged by host.
+.TP
+\fBtext\fR, \fBt\fR [default]
+Output plain text.
+.TP
+\fBhtml\fR, \fBh\fR
+Output HTML.
+.TP
+\fBxml\fR, \fBx\fR
+.br
+Output XML. (experimental)
+.
+.IP \fINOTE:\fB
+The following set are mutually exclusive: [\fBbyseverity\fR|\fBbyhost\fR] and [\fBtext\fR|\fBhtml\fR].
+.RE
+.
+.TP
+\fB--error\fR, \fB-e\fR \fIoptions\fR
+Behaviour in case of error, available options are:
+.RS
+.TP
+\fBallfatal\fR, \fBaf\fR
+All error are considered as fatals.
+.TP
+\fBallwarning\fR, \fBaw\fR
+All error are considered as warnings.
+.TP
+\fBdfltseverity\fR, \fBds\fR [default]
+Use the severity associated with the test.
+.TP
+\fBstop\fR, \fBs\fR [default]
+Stop on the first fatal error.
+.br
+\fIWARNING:\fR the current implementation stop on the first error but for each server.
+.TP
+\fBnostop\fR, \fBns\fR
+Never stop (even on fatal error). This generally result in a lot of errors or unexpected results due to the previous fatal error.
+.
+.IP \fINOTE:\fB
+The following set are mutually exclusive: [\fBallfatal\fR|\fBallwarning\fR|\fBdfltseverity\fR] and [\fBstop\fR|\fBnostop\fR].
+.RE
+.
+.TP
+\fB--transp\fR, \fB-t\fR \fIoptions\fR
+Transport/routing layer selection, available options are:
+.RS
+.TP
+\fBipv4\fR, \fB4\fR [default]
+Use the IPv4 routing protocol.
+.TP
+\fBipv6\fR, \fB6\fR [default]
+Use the IPv6 routing protocol.
+.TP
+\fBudp\fR, \fBu\fR
+Use the UDP transport layer.
+.TP
+\fBtcp\fR, \fBt\fR
+Use the TCP transport layer.
+.TP
+\fBstd\fR, \fBs\fR [default]
+Use the UDP with fallback to TCP for truncated messages.
+.
+.IP \fINOTE:\fB
+\fBudp\fR, \fBtcp\fR and \fBstd\fR are mutually exclusive.
+.RE
+.
+.TP
+\fB--edns\fR \fI[always|never|auto]\fR
+Activate/Deactivate the use of EDNS for all queries. Three possible values:
+always, never, auto. Auto : automatically determine if the domain and the
+route to name servers can carry EDNS queries.
+.
+.TP
+\fB--ipv4\fR, \fB-4\fR
+Only check the zone with IPv4 connectivity.
+.
+.TP
+\fB--ipv6\fR, \fB-6\fR
+Only check the zone with IPv6 connectivity.
+.
+.TP
+\fB--preset\fR \fIname\fR
+Use of a preset configuration defined in the zc.conf configuration file.
+.
+.TP
+\fB--option\fR \fIoptions\fR
+Set extra options. The syntax is: -,-opt,opt,opt=foo
+.RS
+.TP
+\fBihtml\fR
+Generate HTML pages that are suitable for inclusion (for HTML output).
+.TP
+\fBnojavascript\fR
+Remove generation of javascript (for HTML output).
+.
+.SH "ENVIRONMENT"
+.TP
+.I LANG
+Specify the lang and eventually the encoding to use to display messages.
+For examples: fr, fr_CA, fr.latin1, fr_CA.utf8, ...
+.TP
+.I ZC_CONFIG_DIR
+Directory where the configuration file and the different profiles are located.
+.TP
+.I ZC_CONFIG_FILE
+Name of the configuration file to use (defaul to zc.conf), it is
+override by the \fB--config\fR option.
+.TP
+.I ZC_LOCALIZATION_DIR
+Directory where all the localization files are located.
+.TP
+.I ZC_TEST_DIR
+Directory where all the tests are located, it is override by the
+\fB--testdir\fR option.
+.TP
+.I ZC_HTML_PATH
+Path relative to the web server to use when generating HTML pages.
+.TP
+.I ZC_DEBUG 
+The variable as the same effect as the \fBdebug\fR parameter, but its
+main advantage is that it is taken into account from the beginning of
+the program.
+.TP
+.I ZC_INPUT
+The variable as the same effect as the undocumented \fBINPUT\fR parameter,
+it allows to chose the input interface used by \fIZoneCheck\fR, the currently
+supported values are: \fBcli\fR, \fBcgi\fR and \fBinetd\fR. But other interfaces doesn't accept the same parameters as the one described here.
+.TP
+.I ZC_IP_STACK
+Restrict the IP stack available to IPv4 or IPv6, for that set it respectively to 4 or 6.
+This is particularly useful if you have an IPv6 stack on your computer but don't have the connectivity, in that case define ZC_IP_STACK=4.
+.TP
+.I ZC_XML_PARSER
+If ruby-libxml is installed, this parser will be used instead of rexml for speed improvement, but you can force the use of rexml by setting ZC_XML_PARSER to rexml.
+.TP
+.IP \fINOTE:\fB
+The following variables are mainly useful when it is not possible for the user to specify alternative value with the selected input interface: \fIZC_CONFIG_DIR\fR, \fIZC_CONFIG_FILE\fR, \fIZC_LOCALIZATION_DIR\fR, \fIZC_TEST_DIR\fR.
+Such a case happen when using the cgi interface, and you don't want the user to read an arbitrary configuration file, but as the provider of the service you want to use another configuration.
+.
+.SH "EXIT STATUS"
+The following exit status can be reported by \fIZoneCheck\fR:
+.TP
+0
+Everything went fine, no fatal errors were reported, the domain configuration
+is correct.
+.TP
+1
+The program completed but some tests failed with a fatal severity, the
+domain is NOT correctly configured.
+.TP
+2
+The program completed but some tests failed due with a fatal severity
+due to \fItimeout\fR occuring, the domain has been considered as NOT correctly
+configured, but you could want to check again later. \fIThis is currently 
+not implemented.\fR
+.TP
+3
+The user aborted the program before it's completion.
+.TP
+4
+An error which is not directly related to the tests performed has occured
+(ie: something went wrong).
+.TP
+9
+The user (you?) didn't bother reading the man page...
+.
+.SH "FILES"
+.TP
+\fB\fI/usr/local/etc/zonecheck/zc.conf\fB\fR
+The default configuration file.
+.TP
+\fB\fI/usr/local/etc/zonecheck/*.profile\fB\fR
+The test sequence to use for different domains.
+.TP
+\fB\fI/usr/local/libexec/zc/test\fB\fR
+Contains the code of the tests performed by ZoneCheck.
+.TP
+\fB\fI/usr/local/libexec/zc/locale\fB\fR
+Contains the different translations.
+.TP
+\fB\fI/usr/local/libexec/zc/www\fB\fR
+Contains a website sample for the web interface.
+.
+.SH EXAMPLES
+.LP
+Test the domain_name with IPv6 only connectivity, print
+a summary information about the tested domain as well as explanations
+and details of failed tests.
+.RS
+.nf
+\fBzonecheck -6 --verbose=i,x,d domain_name\fP
+.fi
+.RE
+.LP
+Ask for the 'error' message associated with the test 'soa'.
+.RS
+.nf
+\fBzonecheck --testdesc error -T soa\fP
+.fi
+.RE
+.LP
+Only print tests which have failed and the result (succeed/failed),
+this would be ideal for giving people, through email fir example, 
+a short description of why their domains are not correctly configured.
+.RS
+.nf
+\fBzonecheck -q -vn,d,x,f domain_name\fP
+.fi
+.RE
+.LP
+If you want to test your domain, you will certainly like to use these
+parameters (the use of IPv4 only as been forced because now people have
+computer with IPv6 stack but very few have the IPv6 connectivity, so
+autodetection will failed).
+.RS
+.nf
+\fBzonecheck -4 -vi,x,d,c domain_name\fP
+.fi
+.RE
+.
+.SH "SEE ALSO"
+\fIRFC 1033\fR, \fIRFC 1034\fR, \fIRFC 1035\fR,
+\fBdig\fR(1)
+.
+.SH "AUTHORS"
+Stephane D'Alu with the help of people working at AFNIC is the author
+of this version, but don't forget also to take a look at the CREDITS file
+available in the distribution.
+.
+.SH "HISTORY"
+ZoneCheck was initiated and developed by engineers working at NIC France (INRIA's service) to check the correct configuration of a zone before delegating a domain name under .fr. Its development continued at AFNIC, which took over the activities of NIC France on January 1 1998.
+
+ZoneCheck-1.* was created in 1995 by Benoit Grange and has been maintained by him until 1997. The prototype was a script using the dig command, which evolved into a perl program based on the DNS resolver Resolv5. Vincent Gillet maintained the programme in 1998. This task has been taken over by Erwan Mas and Philippe Lubrano from 1998 until now.
+
+ZoneCheck-2.* is a rewrite from scratch done in ruby at the end of 2002 by Stephane D'Alu, so as to create a modular and extensible version. And is the current version of ZoneCheck.
+.
+.SH "BUGS"
+Please send problems, bugs, questions, desirable enhancements,
+source code contributions, by using the interface provided by:
+.LP
+.RS
+http://savannah.nongnu.org/projects/zonecheck
+.RE
+.LP
+You can also consult the \fIZoneCheck\fP homepage for more information:
+.LP
+.RS
+http://www.zonecheck.fr/
+.RE
+.
+.\" Local Variables:
+.\" mode: nroff
+.\" End:

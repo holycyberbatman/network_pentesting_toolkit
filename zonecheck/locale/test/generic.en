@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: generic.en,v 1.32 2010/06/02 09:17:59 bortzmeyer Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.32 $ 
+# DATE        : $Date: 2010/06/02 09:17:59 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Shortcuts -->
+  <shortcut>
+    <explanation name="label">
+      <src type="ref" from="rfc" fid="rfc1034#p11">
+        <title>IETF RFC1034 (p.11)</title>
+        <para>Labels are only composed by letters ([A-Za-z]), digits
+        ([0-9]) or dashes ('-') (not starting or ending with), and
+        should be less or equal than 63 characters; domain name
+        (labels separated by '.') should be less or equal than 255 characters. See also [ref]: IETF RFC1912 (2.1 Inconsistent, Missing, or Bad Data).</para>
+      </src>
+    </explanation>
+
+    <explanation name="rfc2182">
+      <src type="adv" from="zonecheck">
+        <title>ZoneCheck</title>
+        <para>To avoid losing all connectivity with the authoritative DNS
+          in case of network outage it is advised to host the DNS on
+          different networks.</para>
+      </src>
+      <src type="ref" from="rfc" fid="rfc2182">
+        <title>IETF RFC2182 (Abstract)</title>
+        <para>The Domain Name System requires that multiple servers exist for every delegated domain (zone).  This document discusses the selection of secondary servers for DNS zones.  Both the physical and topological location of each server are material considerations when selecting secondary servers.  The number of servers appropriate for a zone is also discussed, and some general secondary server maintenance issues considered.</para>
+      </src>
+    </explanation>
+  </shortcut>
+
+
+  <!-- Checks -->
+  <check name="dn_sntx">
+    <name>illegal symbols in domain name</name>
+    <success>No illegal symbols found in domain name</success>
+    <failure>The domain name contains illegal symbols</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+
+  <check name="dn_orp_hyph">
+    <name>dash ('-') at start or beginning of domain name</name>
+    <success>No illegal use of dash ('-') in the domain name found</success>
+    <failure>The domain name start or end with a dash ('-')</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+  <check name="dn_dbl_hyph">
+    <name>double dash in domain name</name>
+    <success>No double dash ('--') found</success>
+    <failure>The domain name contains a double dash</failure>
+    <explanation>
+      <src type="ref">
+        <title>IETF IDN project (internationalized domain names)</title>
+        <para>The double dash ('--') will have a special meaning for
+          the domain name encoding, so it is strongly advised not to
+          used it. See <uri link="http://www.iana.org/cctld/specifications-policies-cctlds-01apr02.htm">http://www.iana.org/cctld/specifications-policies-cctlds-01apr02.htm</uri> (4. Tagged Domain Names.)</para>
+      </src>
+    </explanation>
+    <details/>
+  </check>
+
+
+  <check name="one_ns">
+    <name>one nameserver for the domain </name>
+    <success>At least one nameserver found</success>
+    <failure>At least one nameserver is required</failure>
+    <explanation sameas="shortcut:rfc2182"/>
+    <details/>
+  </check>
+
+  <check name="several_ns">
+    <name>at least two nameservers for the domain</name>
+    <success>At least two nameservers found</success>
+    <failure>At least two nameservers are necessary</failure>
+    <explanation sameas="shortcut:rfc2182"/>
+    <details/>
+  </check>
+
+  <check name="ip_distinct">
+    <name>identical addresses</name>
+    <success>All addresses are distinct</success>
+    <failure>All addresses should be distinct</failure>
+    <explanation sameas="shortcut:rfc2182"/>
+    <details><para>The nameservers <zcvar name="ns"/> are using the 
+      same IP address (<zcvar name="ip"/>).</para></details>
+  </check>
+
+  <check name="ip_same_net">
+    <name>nameserver's addresses on same subnet</name>
+    <success>Some IP addresses are not on the same subnet</success>
+    <failure>IP addresses on the same subnet</failure>
+    <explanation sameas="shortcut:rfc2182"/>
+    <details><para>The following subnets are used by several
+      hosts: <zcvar name="subnets"/>. Try moving some of their hosts
+      to another subnet.</para></details>
+  </check>
+
+  <check name="ip_all_same_net">
+    <name>nameserver addresses are likely to be all on the same subnet</name>
+    <success>Not all IP addresses are on the same subnet</success>
+    <failure>IP addresses are likely to be all on the same subnet</failure>
+    <explanation sameas="shortcut:rfc2182"/>
+    <details><para>All the servers are likely to be on the subnet 
+      <zcvar name="subnet"/>, try moving some of them to another
+      subnet.</para></details>
+  </check>
+
+  <check name="all_same_asn">
+    <name>nameservers belong all to the same AS</name>
+    <success>All nameservers are not part of the same AS</success>
+    <failure>Nameservers are all part of the same AS</failure>
+    <explanation>
+      <src type="adv" from="zonecheck">
+        <title>ZoneCheck</title>
+        <para>To avoid losing all connectivity with the authoritative DNS
+          in case of a routing problem inside your Autonomous System,
+          it is advised to host the DNS on different AS.</para>
+      </src>
+    </explanation>
+    <details><para>All the nameservers are part of the same 
+      Autonomous System (AS number <zcvar name="asn"/>), try to have some
+      of them hosted on another AS.</para></details>
+  </check>
+
+  <check name="delegation_udp512">
+    <name>delegation response fit in a 512 byte UDP packet</name>
+    <success>Delagation response fit in a 512 byte UDP packet</success>
+    <failure>Delegation response won't fit in a 512 byte UDP packet</failure>
+    <explanation/>
+    <details><para>For a query of <zcconst name="delegation_query_size"/> 
+      bytes, it won't be possible to send all the nameservers
+      (<zcvar name="excess"/> bytes in excess).</para></details>
+  </check>
+
+  <check name="delegation_udp512_additional">
+    <name>delegation response with additional fit in a 512 byte UDP packet</name>
+    <success>Delagation response with additional fit in a 512 byte UDP packet</success>
+    <failure>Delegation response with additional won't fit in a 512 byte UDP packet</failure>
+    <explanation/>
+    <details><para>For a query of <zcconst name="delegation_query_size"/>
+      bytes, it won't be possible to send all the nameservers with the
+      corresponding glues (<zcvar name="excess"/> bytes in excess).
+      </para></details>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: axfr.fr,v 1.13 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2003/01/16 13:58:17
+# REVISION    : $Revision: 1.13 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <check name="axfr">
+    <name>transfert de zone possible</name>
+    <success>Transfert de zone réussi</success>
+    <failure>Transfert de zone impossible</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <check name="axfr_empty">
+    <name>transfert de zone ne contenant aucune donnée</name>
+    <success>Le transfert de zone contient des données</success>
+    <failure>Le transfert de zone ne contient pas de données</failure>
+    <explanation/>
+    <details/>
+  </check>
+
+  <check name="axfr_valid_labels">
+    <name>transfert de zone contenant des labels invalides</name>
+    <success>Le transfert de zone ne contient aucun label invalide</success>
+    <failure>Le transfert de zone contient des labels invalides</failure>
+    <explanation sameas="shortcut:label"/>
+    <details/>
+  </check>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

@@ -1,0 +1,136 @@
+<!-- $Id: install.xml,v 1.12 2010/06/01 15:36:07 chabannf Exp $ -->
+
+    <section>
+      <title>Requirement</title>
+  
+      <itemizedlist>
+	<listitem>
+	  <para>For the ZoneCheck core components:
+            <itemizedlist>
+	      <listitem>
+		<para>Ruby (v. 1.8): <ulink url="http://www.ruby-lang.org/">http://www.ruby-lang.org/</ulink></para>
+	      </listitem>
+	    </itemizedlist>
+          </para>
+	</listitem>
+	
+	<listitem>
+	  <para>For UTF-8 unaware terminal:
+            <itemizedlist>
+	      <listitem>
+		<para>Ruby Iconv: <ulink url="http://raa.ruby-lang.org/list.rhtml?name=iconv">http://raa.ruby-lang.org/list.rhtml?name=iconv</ulink></para>
+	      </listitem>
+	    </itemizedlist>
+          </para>
+	</listitem>
+
+	<listitem>
+	  <para>For the CGI interface (other servers or clients can be used):
+            <itemizedlist>
+	      <listitem>
+		<para>Apache2: <ulink url="http://httpd.apache.org/">http://httpd.apache.org/</ulink></para>
+	      </listitem>
+	      <listitem>
+		<para>Mozilla: <ulink url="http://www.mozilla.org/">http://www.mozilla.org/</ulink></para>
+	      </listitem>
+	    </itemizedlist>
+          </para>
+	</listitem>
+      </itemizedlist>
+   </section>
+
+
+    <section>
+      <title>Directory layout</title>
+      <screen>PREFIX
+|-- bin
+|   `-- zonecheck		# Command line
+|-- etc
+|   `-- zonecheck		# Configuration directory
+|      |-- zc.conf		#   Main configuration file
+|      |-- rootservers		#   List of the root servers (YAML file)
+|      |-- reverse.profile	#   Profile for checking reverse delegation
+|      |-- ...			#   ...
+|      `-- default.profile	#   Default set of rules to be used
+|-- libexec
+|   `--zonecheck
+|      |-- cgi-bin
+|      |   `-- zc.cgi		# CGI
+|      |-- html			# HTML directory (javascript, css, pics, ...)
+|      |   |-- en		#   English version
+|      |   |-- ...              #   ...
+|      |   `-- fr		#   French version
+|      |-- locale		# Localisation files
+|      |-- test			# test set
+|      |-- lib			# Extra libraries (Whois)
+|      `-- zc			# core component
+`-- share
+    `-- doc
+        `-- zonecheck		# Documentation</screen>
+    </section>
+
+
+    <section>
+      <title>CGI</title>
+      <para>Here is an exemple of 
+      <ulink url="http://httpd.apache.org">Apache2</ulink> configuration file,
+      assuming ZoneCheck has been installed in
+      <filename class="directory">/usr/local</filename> (PREFIX=/usr/local)
+      and for html pages generated in the
+      <filename class="directory">/zc/</filename> namespace (HTML_PATH=/zc).
+<screen>
+AliasMatch  ^/zonecheck/?$         /usr/local/libexec/zonecheck/www/html/form.html
+AliasMatch  ^/zonecheck/(en|fr)/?$ /usr/local/libexec/zonecheck/www/html/form.html.$1
+AliasMatch  ^/zonecheck/(en|fr)/(.*)$ /usr/local/libexec/zonecheck/www/html/$2.$1
+ScriptAlias /zonecheck/cgi-bin/    /usr/local/libexec/zonecheck/cgi-bin/
+Alias       /zonecheck/js/         /usr/local/libexec/zonecheck/www/js/
+Alias       /zonecheck/style/      /usr/local/libexec/zonecheck/www/style/
+Alias       /zonecheck/img/        /usr/local/libexec/zonecheck/www/img/
+Alias       /zonecheck/            /usr/local/libexec/zonecheck/www/html/
+
+&lt;Directory /usr/local/libexec/zonecheck/cgi-bin/&gt;
+    Options ExecCGI 
+&lt;/Directory&gt;
+
+&lt;Directory /usr/local/libexec/zonecheck/www/&gt;
+    Options Includes FollowSymLinks MultiViews
+&lt;/Directory&gt;
+
+</screen>
+</para>
+    </section>
+
+  <section>
+    <title>inetd</title>
+    <para>First you need to edit the file <filename>/etc/services</filename>,
+      which contains information regarding the known services
+     available in the Internet to add the following line:
+<screen>
+zonecheck       1904/tcp  # ZoneCheck service
+</screen>
+
+You also need to configure <application>inetd</application>, so that
+it is listening for the new zonecheck service, this is done by adding
+the line:
+<screen>
+zonecheck stream tcp nowait root /usr/local/bin/zonecheck zonecheck --INPUT=inetd
+</screen>
+
+If you have an IPv6 stack installed but don't have the connectivity
+with the outside world add the option <option>-4</option> to the
+<command>zonecheck</command> command.
+
+</para>
+    </section>
+
+<!-- 
+  Local Variables:
+  mode: xml
+  sgml-declaration: "../chapter.decl"
+  sgml-indent-data: t
+  sgml-omittag: nil
+  sgml-always-quote-attributes: t
+  sgml-parent-document: ("../zc.xml" "part" "chapter")
+  End:
+-->
+

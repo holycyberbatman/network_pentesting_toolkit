@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="en">
+<!-- $Id: cli.fr,v 1.29 2010/06/01 15:36:07 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.29 $ 
+# DATE        : $Date: 2010/06/01 15:36:07 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <tag name="input:cli:usage">usage: PROGNAME: [-hqV] [-voet opt] [-46] [-n ns...] [-c conf] nomdedomaine
+        --lang          Choisit une autre langue (en, fr, ...)
+    -d, --debug         Choisit les messages de deboguage à afficher
+    -h, --help          Affiche ce message
+    -V, --version       Affiche le numéro de version et quitte
+    -B, --batch         Dépreciée, pour plus d'informations lisez la FAQ
+    -c, --config        Emplacement du fichier de configuration
+        --testdir       Emplacement du répertoire contenant les tests
+    -P, --profile       Force l'utilisation d'un profile
+    -C, --category      Limite les tests à un ensemble de catégories
+    -T, --test          Nom du test à effectuer
+        --testlist      Liste tous les tests disponibles
+        --testdesc      Donne une description du test
+                           (valeurs: name, failure, success, explanation)
+    -r, --resolver      Résolveur à utiliser pour déterminer les 'ns'
+    -n, --ns            Liste des serveurs de noms pour le domaine
+                           (ex: ns1;ns2=ip1,ip2;ns3=ip3)
+    -q, --quiet         N'affiche pas de titres suplémentaires
+    -1, --one           Affiche uniquement le message le plus significatif
+    -g, --tagonly       Affiche uniquement les tags (idéal pour les scripts)
+    -v, --verbose       Niveau de détail des informations (voir verbose)
+    -o, --output        Format de sortie (voir output)
+    -e, --error         Comportement en cas d'erreur (voir error)
+    -t, --transp        Choix de la couche transport/routage (voir transp)
+    -4, --ipv4          Utilise uniquement IPv4 pour vérifier le domaine
+    -6, --ipv6          Utilise uniquement IPv6 pour vérifier le domaine
+        --preset        Utilise une configuration préinitialisée
+        --option        Options supplémentaires (-,-opt,opt,opt=toto)
+    
+    -s, --securedelegation    Lance les tests DNSSEC (voir man zonecheck)
+
+  verbose:              [intro/testname/explain/details]
+                        [reportok|fatalonly] [testdesc|counter]
+                        peut être préfixé par '-' ou '!' pour retirer l'effet
+    intro          [i]  Affiche un résumé du domaine et de ses serveurs
+    testname       [n]  Affiche le nom du test
+    explain        [x]  Affiche une explication en cas d'échec du test
+    details        [d]  Affiche les détails liés à l'échec du test
+    reportok       [o]  Affiche quand même les tests qui ont réussi
+    fatalonly      [f]  Affiche uniquement les erreurs fatales
+    testdesc       [t]  Affiche la description du test en cours
+    counter        [c]  Affiche une barre de progression
+
+  output:               [byseverity|byhost] [text|html]
+    byseverity    *[bs] Affiche les résultats classés par sévérité
+    byhost         [bh] Affiche les résultats classés par machine
+    text          *[t]  Formatage en texte pur
+    html           [h]  Formatage en HTML
+
+  error:                [allfatal|allwarning|dfltseverity] [stop|nostop]
+    allfatal       [af] Tout échec est considéré comme fatal
+    allwarning     [aw] Tout échec est considéré comme un avertissement
+    dfltseverity  *[ds] Utilise la sévérité associée au test
+    stop          *[s]  Arrête dès le premier échec
+    nostop         [ns] Exécute tous les tests (même après échec fatal)
+
+  transp:               [ipv4/ipv6] [udp|tcp|std]
+    ipv4          *[4]  Utilise le protocole de routage IPv4
+    ipv6          *[6]  Utilise le protocole de routage IPv6
+    udp            [u]  Utilise la couche de transport UDP
+    tcp            [t]  Utilise la couche de transport TCP
+    std           *[s]  Utilise UDP et se replie sur TCP si nécessaire
+
+  Traitement en lots:
+   Lit les domaines ligne par ligne depuis un fichier ou l'entrée standard,
+   La syntaxe est:
+      DOM=nom_de_domain
+   ou DOM=nom_de_domain NS=ns1;ns2=ip1,ip2
+
+  Catégories:
+    permet=[+|]    interdit=[-|!]    sous-composant=:    séparateur=,
+    ex: dns:soa,!dns,+
+        n'effectue pas les tests DNS qui ne sont pas liés au SOA
+
+
+EXEMPLES:
+  PROGNAME -6 --verbose=i,x,d afnic.fr.
+    Teste le domaine 'afnic.fr.' en utilisant uniquement une connectivité
+    IPv6, affiche un résumé des informations sur le domaine testé
+    ainsi qu'une explication et les détails sur les tests ayant échoués
+
+  PROGNAME --testdesc error -T soa
+    Demande le message 'error' associé avec le test soa'
+</tag>
+
+  <tag name="input:cli:deprecated_option">L'option %s est dépreciée, pour plus d'informations lisez la FAQ</tag>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

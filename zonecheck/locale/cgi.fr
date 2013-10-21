@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: cgi.fr,v 1.17 2011/03/14 13:38:25 kmkaplan Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2003/03/28 19:58:17
+# REVISION    : $Revision: 1.17 $ 
+# DATE        : $Date: 2011/03/14 13:38:25 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <tag name="input:cgi:usage">=> Ce script CGI ne peut pas être directement invoqué!
+   Utilisez un des formulaires présent sur le site à la place.
+
+Ci-dessous se trouve un résumé des paramètres possibles, pour plus
+d'informations veuillez consulter la documentation de ZoneCheck.
+
+parametres:
+ - lang     = [ fr | en | ... ]
+ - quiet
+ - one
+ - option
+ - verbose  = [ i|intro, n|testname, x|explain, d|details,
+                t|testdesc, c|counter, o|reportok ]
+     - intro
+     - testname
+     - explain
+     - details
+     - progress = [ t|testdesc | c|counter ]
+     - reportok
+     - fatalonly
+ - output   = [ bs|byseverity, bh|byhost, t|text, h|html ]
+     - report   = bs|byseverity | bh|byhost
+     - format   = h|html | t|text
+ - error    = [ af|allfatal, aw|allwarning, ds|dfltseverity,
+                s|stop, ns|nostop ]
+     - errorlvl  = [ af|allfatal | aw|allwarning | ds|dfltseverity ]
+     - dontstop 
+ - transp   = [ ipv4, ipv6, udp, tcp, std ]
+     - transp3   = [ ipv4, ipv6 ]
+     - transp4   = [ udp | tcp | std ]
+ - profile  = nom du profile
+ - category = cat1,!cat2:subcat1,cat2,!cat3,+
+     - chkmail (!mail)
+     - chkrir  (!rir)
+     - chkzone (!dns:axfr)
+ - ns-rdata = DS rdata
+ - ns       = ns1=ip1,ip2;ns2=ip3;ns3
+               (ATTENTION: utiliser '%3b' dans l'URL à la place de ';')
+     - ns0  .. nsX   = serveur de nom
+     - ips0 .. ipsX  = adresses IP séparées par une virgule
+ - zone     = zone à tester
+
+exemples:
+ - zone=afnic.fr&amp;intro&amp;progress=testdesc&amp;transp=ipv4,ipv6,std
+ - zone=afnic.fr&amp;verbose=i,t&amp;ns=ns1.nic.fr%3bns2.nic.fr%3bns3.nic.fr
+ - zone=afnic.fr&amp;verbose=i,t&amp;ns=ns1.nic.fr=192.93.0.1&amp;ns=ns2.nic.fr&amp;ns=bns3.nic.fr
+</tag>
+
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

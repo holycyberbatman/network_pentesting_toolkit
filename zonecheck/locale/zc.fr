@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: zc.fr,v 1.48 2010/06/25 08:41:27 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     : 2002/08/02 13:58:17
+# REVISION    : $Revision: 1.48 $ 
+# DATE        : $Date: 2010/06/25 08:41:27 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+<!-- Word -->
+<section name="word">
+  <tag name="generic">générique</tag>
+  <tag name="warning">avertissement</tag>
+  <tag name="warning_id">a</tag>
+  <tag name="fatal">fatal</tag>
+  <tag name="fatal_id">f</tag>
+  <tag name="info">info</tag>
+  <tag name="info_id">i</tag>
+  <tag name="ok">ok</tag>
+  <tag name="ok_id">o</tag>
+  <tag name="testing">teste</tag>
+  <tag name="unexpected">inattendu</tag>
+  <tag name="line">ligne</tag>
+  <tag name="error">erreur</tag>
+  <tag name="perfect">parfait</tag>
+  <tag name="quit">quitte</tag>
+  <tag name="abort">interrompt</tag>
+  <tag name="details">détails</tag>
+  <tag name="references">références</tag>
+  <tag name="elements">éléments</tag>
+  <tag name="form">formulaire</tag>
+  <tag name="name">nom</tag>
+  <tag name="second_abbr">sec</tag>
+</section>
+
+<section name="report">
+  <tag name="all_servers">tous les serveurs</tag>
+</section>
+
+<!-- Titles -->
+<tag name="t_single">domaine simple</tag>
+
+
+<!-- Tag -->
+<tag name="tag_ref">Réf</tag>
+<tag name="tag_adv">Conseil</tag>
+
+
+<!-- -->
+<tag name="res_success_but">SUCCÈS (mais %d avertissement(s))</tag>
+<tag name="res_success">SUCCÈS</tag>
+<tag name="res_failure">ÉCHEC</tag>
+<tag name="res_failure_and">ÉCHEC (et %d avertissement(s))</tag>
+
+<tag name="ns_zone">zone</tag>
+<tag name="ns_ns">ns</tag>
+<tag name="ns_primary">primaire</tag>
+<tag name="ns_secondary">secondaire</tag>
+<tag name="ns_ips">IPs</tag>
+
+<tag name="title_zoneinfo">Information sur la Zone</tag>
+<tag name="title_progress">Progression</tag>
+<tag name="title_testres">Résultat des tests</tag>
+<tag name="title_status">Statut final</tag>
+
+<tag name="pgr_progress">Progression</tag>
+<tag name="pgr_test">Tests</tag>
+<tag name="pgr_time">Temps</tag>
+<tag name="pgr_speed">Vitesse</tag>
+<tag name="pgr_speed_unit">T/s</tag>
+<tag name="pgr_na">N/A</tag>
+
+<!-- -->
+<tag name="problem_file">problème à l'ouverture/lecture du fichier: %s</tag>
+
+  <!-- Input -->
+  <section name="input">
+    <tag name="unsupported_method">méthode d'entrée '%s' non supportée</tag>
+    <tag name="suspicious_method">méthode d'entrée '%s' douteuse</tag>
+    <tag name="version">PROGNAME: version %s</tag>
+    <tag name="unsupported_domain">Impossible d'établir une correspondance pour '%s'</tag>
+  </section>
+
+<!-- Config -->
+  <section name="config">
+    <tag name="check_unknown">Test de vérification '%s' inconnu</tag>
+    <tag name="unknown_profile">Profile '%s' inconnu</tag>
+    <tag name="unknown_preset">Préinitialisation '%s' inconnue</tag>
+    <tag name="error_in_preset">Erreur dans la préinitialisation '%s'</tag>
+  </section>
+
+ <section name="param">
+    <tag name="ns_name">Le serveur de nom (%s) n'est pas un nom de machine</tag>
+    <tag name="ns_ip">L'adresse renseignée (%s) n'est pas une adresse IP</tag>
+  </section>
+
+<!-- Exceptions -->
+
+<tag name="xcp_param_fqdn_required">Nom de domaine absolument qualifié attendu</tag>
+<tag name="xcp_param_domain_expected">Un nom de domaine (et un seul) attendu</tag>
+<tag name="xcp_param_domain_nxdomain">Le domaine %s n'a pas été trouvé à partir du résolveur local</tag>
+<tag name="xcp_param_soa">Impossible de trouver d'enregistrement SOA pour ce domaine</tag>
+<tag name="xcp_param_primary_soa">Impossible de trouver le serveur de nom primaire (SOA)</tag>
+<tag name="xcp_param_nameservers_ns">Impossible de trouver les serveurs de noms (NS)</tag>
+<tag name="xcp_param_prim_ns_soa">Impossible d'identifier le serveur de nom primaire (NS vs SOA)</tag>
+<tag name="xcp_param_nameserver_is_ip">Le serveur de nom %s est une adresse IP et devrait être un nom</tag>
+<tag name="xcp_param_nameserver_ips">Impossible de trouver les adresses IP de %s</tag>
+<tag name="xcp_param_ns_bad_ips">Addresses IP donnees pour %s ne corrspondent pas aux enregistrement du DNS</tag>
+<tag name="xcp_param_output_support">La sortie ne supporte pas la classe '%s'</tag>
+<tag name="xcp_param_ip_no_stack">%s n'est pas supporté sur cette machine</tag>
+<tag name="xcp_param_unknown_modopt">Modificateur '%s' inconnu pour l'option '%s'</tag>
+<tag name="xcp_param_local_resolver">Addresse IP attendue pour le resolveur local</tag>
+
+<tag name="dig_print">Affichage des requêtes effectuées pour ce test: </tag>
+
+<tag name="xcp_testmanager_badclass">classe '%s' ne dérive pas de %s</tag>
+<tag name="xcp_testmanager_test_exists">test '%s' défini dans les classes '%s' et '%s'</tag>
+<tag name="xcp_testmanager_check_exists">vérification '%s' définie dans les classes '%s' et '%s'</tag>
+
+<tag name="param_too_many_arguments">trop d'arguments (%s arguments) ont été passé à l'option %s</tag>
+
+  <!-- Dnsruby rcode -->
+  <section name="resolv:rcode">
+    <tag name="servfail">échec du serveur</tag>
+    <tag name="refused">réponse refusée par le serveur</tag>
+    <tag name="nxdomain">le domaine n'existe pas</tag>
+    <tag name="notimp">requête non mise en oeuvre sur le serveur</tag>
+  </section>
+
+  <section name="dnssec">
+    <tag name="algorithm:unknown">algoritme inconnu</tag>
+    <tag name="algorithm:deprecated">algoritme déprecié</tag>
+  </section>
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>

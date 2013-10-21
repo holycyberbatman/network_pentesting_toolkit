@@ -1,0 +1,75 @@
+# $Id: INSTALL,v 1.17 2010/06/01 15:36:06 chabannf Exp $
+
+For the impatient: 'ruby ./installer.rb all' to install Zonecheck.
+It should generally works, but there is sometimes some misconfigurations
+of the installer, so we recommend you to check the environment
+variables used by the installer. To do so you can type 
+'ruby ./installer.rb' without parameter.
+
+You will need Ruby to install ZoneCheck, after the installation the
+executable will be available under the name of 'zonecheck'
+
+Ruby can be found as a package or port in every serious
+Unix. Otherwise, see <URL:http://www.ruby-lang.org/> and
+<URL:http://www.rubycentral.com/>, or if you are a Windows user, you
+can find a version of ruby in the cygwin distribution
+<URL:http://www.cygwin.com/>.
+
+WARNING:
+ - you need at least the version 1.8 of Ruby.
+ - it is not advised for now to use 'rubyinstaller'
+    <URL:http://rubyinstaller.sourceforge.net/> as some constants
+    allowing to detect errors in network connectivity are not defined.
+
+
+
+If you are reading this file, we can assume that you haven't already
+install ZoneCheck by typing "make install"; in fact you don't need
+the 'make' command (but as it is a reflex, a dummy Makefile has been
+created).
+
+To install ZoneCheck you need to execute the following command:
+ ruby ./installer.rb target [-Dparam=value]
+
+where target can have one of the following values
+ - all:    install everything
+ - common: install common part of ZoneCheck
+ - cgi:    install the necessary files for cgi (requires: common)
+ - cli:    install the necessary files for command line (requires: common)
+ - doc:    install extra documentation 
+
+the -D option allow to define one of the installation parameters
+for example:
+ - RUBY      define the full path of the interpreter to use
+ - PREFIX    define where ZoneCheck is to be installed
+ - HTML_PATH define the path relative to the web site (for the cgi)
+
+There are a few other parameters but you shouldn't need them.
+
+
+The default hierarchy is:
+PREFIX [/usr/local]
+|-- bin
+|   `-- zonecheck		# Command line
+|-- etc
+|   `-- zonecheck		# Configuration directory
+|      |-- zc.conf		#   Main configuration file
+|      |-- rootservers		#   List of the root servers (YAML file)
+|      |-- reverse.rules	#   Rules for checking reverse delegation
+|      |-- ...			#   ...
+|      `-- default.rules	#   Default set of rules to be used
+|-- libexec
+|   `--zonecheck
+|      |-- cgi-bin
+|      |   `-- zc.cgi		# CGI
+|      |-- html			# HTML directory (javascript, css, pics, ...)
+|      |   |-- en		#   English version
+|      |   |-- ...              #   ...
+|      |   `-- fr		#   French version
+|      |-- locale		# Localization files
+|      |-- test			# Test set
+|      |-- lib			# Extra libraries (Whois)
+|      `-- zc			# core component
+`-- share
+    `-- doc
+        `-- zonecheck		# Documentation

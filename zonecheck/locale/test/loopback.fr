@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE config PUBLIC "-//ZoneCheck//DTD Config V1.0//EN" "msgcat.dtd">
+<msgcat lang="fr">
+<!-- $Id: loopback.fr,v 1.18 2010/06/01 15:36:06 chabannf Exp $ -->
+
+<!--
+# 
+# CONTACT     : zonecheck@nic.fr
+# AUTHOR      : Stephane D'Alu <sdalu@nic.fr>
+#
+# CREATED     :002/09/11 11:20:17
+# REVISION    : $Revision: 1.18 $ 
+# DATE        : $Date: 2010/06/01 15:36:06 $
+#
+# CONTRIBUTORS: (see also CREDITS file)
+#
+#
+# LICENSE     : GPL v3 (or MIT/X11-like after agreement)
+# COPYRIGHT   : AFNIC (c) 2003
+#
+# This file is part of ZoneCheck.
+#
+# ZoneCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+# 
+# ZoneCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ZoneCheck; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+-->
+
+  <!-- Shortcuts -->
+  <shortcut>
+    <explanation name="loopback">
+      <src type="ref" from="rfc" fid="rfc1912#p13#4.1">
+        <title>IETF RFC1912 (p.13 4.1. Boot file setup)</title>
+        <para>These are set up to either provide nameservice for "special"
+          addresses, or to help eliminate accidental queries for broadcast
+          or local address to be sent off to the root nameservers. All of
+          these files will contain NS and SOA records just like the other
+          zone files you maintain.</para>
+      </src>
+     </explanation>
+  </shortcut>
+
+
+  <!-- Checks -->
+  <check name="loopback_delegation">
+    <name>délégation du 'loopback'</name>
+    <success>Le domaine du 'loopback' a bien été délégué</success>
+    <failure>Le domaine du 'loopback' n'est pas délégué</failure>
+    <explanation sameas="shortcut:loopback"/>
+    <details/>
+  </check>
+
+
+  <check name="loopback_host">
+    <name>'loopback' resolvable</name>
+    <success>Il est possible de résoudre le 'loopback'</success>
+    <failure>Impossible de résoudre le 'loopback'</failure>
+    <explanation sameas="shortcut:loopback"/>
+    <details/>
+  </check>
+
+
+  <!-- Local Variables: -->
+  <!-- mode: xml        -->
+  <!-- End:             -->
+</msgcat>
